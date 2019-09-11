@@ -16,7 +16,7 @@
                         <h4>Dashboard</h4>
                     </div>
                     <div class="card-body">
-                        {{lists}}
+                        <pre>{{lists}}</pre>
                     </div>
                 </div>
             </div>

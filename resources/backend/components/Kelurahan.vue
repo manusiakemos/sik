@@ -22,7 +22,7 @@
 		computed: {
 			propModel: {
 				get() {
-					return this.value;
+					return parseInt(this.value);
 				},
 				set(value) {
 					this.$emit("input", value);

@@ -5,10 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Resources\RewardResource;
 use App\Model\Reward;
 use App\Repositories\QueryRepository;
+use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 
 class RewardController extends Controller
 {
+
+    public function getRewardSetting()
+    {
+        return QueryRepository::rewardSetting()->first();
+    }
 
     /**
      * @param $bidan_id
@@ -30,14 +36,14 @@ class RewardController extends Controller
     {
         $this->validate($request, [
             'bidan_id' => 'required',
-            'reward_point' => 'required',
-            'reward_date' => 'required'
         ]);
+
+        $settingReward = $this->getRewardSetting()->setting_value;
 
         $db = new Reward;
         $db->bidan_id = $request->bidan_id;
-        $db->reward_point = $request->reward_point;
-        $db->reward_date = $request->reward_date;
+        $db->reward_point = $settingReward;
+
         return $db->save() ? responseJson('Reward berhasil ditambahkan') : '';
     }
 
@@ -51,34 +57,15 @@ class RewardController extends Controller
         return new RewardResource(Reward::findOrFail($id));
     }
 
-    /**
-     * @param Request $request
-     * @param $id
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|string
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function update(Request $request, $id)
+    public function cash($bidan_id)
     {
-        $this->validate($request, [
-            'bidan_id' => 'required',
-            'reward_point' => 'required',
-            'reward_date' => 'required'
-        ]);
-
-        $db = Reward::findOrFail($id);
-        $db->bidan_id = $request->bidan_id;
-        $db->reward_point = $request->reward_point;
-        $db->reward_date = $request->reward_date;
-        return $db->save() ? responseJson('Reward berhasil diupdate') : '';
+        $data = QueryRepository::poinRewardCash($bidan_id)->first();
+        return $data;
     }
 
-    /**
-     * @param $id
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|string
-     */
-    public function destroy($id)
+    public function balance($bidan_id)
     {
-        $db = Reward::find($id)->delete();
-        return $db ? responseJson('Reward berhasil dihapus') : '';
+        $data = QueryRepository::poinRewardBalance($bidan_id)->first();
+        return $data;
     }
 }

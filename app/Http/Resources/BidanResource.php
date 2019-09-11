@@ -27,10 +27,11 @@ class BidanResource extends JsonResource
             $nomor = $this->bidan_nomor;
         }
         return [
-            'data' => parent::toArray($request),
-            'user' => new ProfileResource($this->user),
             'desc' => $desc,
             'nomor' => $nomor,
+            'data' => parent::toArray($request),
+            'user_resource' => new ProfileResource($this->user),
+            'reward_resource' => RewardResource::collection($this->reward),
             'links' => [
                 'store' => route('bidan.store'),
                 'update' => route('bidan.update', $this->bidan_id),

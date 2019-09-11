@@ -59,7 +59,7 @@ class AuthController extends Controller
             [
                 $this->username() => $request->input($this->username()),
                 "password" => $request->password,
-//                "role" => ["admin", "super-admin", "user"],
+                "role" => ["kominfo", "capil"],
 //                "deleted_at" => null
             ]
         );

@@ -21,6 +21,11 @@ class Bidan extends Model
 
     }
 
+    public function reward()
+    {
+        return $this->hasMany(Reward::class, 'bidan_id', 'bidan_id');
+    }
+
     public function puskesmas()
     {
         return $this->belongsTo(Puskesmas::class, 'puskesmas_id', 'puskesmas_id')->withTrashed();

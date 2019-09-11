@@ -18,8 +18,10 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::resource('user', 'UserController')->except(['show', 'update']);
         Route::resource('bidan', 'BidanController')->except(['edit', 'create']);
         Route::resource('puskesmas', 'PuskesmasController')->except(['edit', 'create']);
-        Route::resource('reward', 'RewardController')->except(['edit', 'create' , 'index']);
+        Route::resource('reward', 'RewardController')->except(['edit', 'create' , 'index', 'update', 'destroy']);
         Route::get('reward-bidan/{bidan_id}', 'RewardController@index')->name('reward-bidan');
+        Route::get('reward-poin-bidan/cash/{bidan_id}', 'RewardController@cash')->name('reward-poin-cash');
+        Route::get('reward-poin-bidan/balance/{bidan_id}', 'RewardController@balance')->name('reward-poin-balance');
     });
 
     Route::resource('setting', 'SettingController')->except(['edit', 'create']);
