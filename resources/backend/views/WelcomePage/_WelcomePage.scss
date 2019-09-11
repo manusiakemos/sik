@@ -1,0 +1,47 @@
+
+.router-link-exact-active {
+  color: map-get($colors, primary) !important;
+  // color: darken(map-get($colors, primary), 10%) !important;
+}
+
+.navbar {
+  .router-link-exact-active.navbar-brand {
+    color: #ffc107;
+  }
+}
+
+.section-one {
+  width: 100%;
+  min-height: 100vh;
+  background: map-get($colors , body );
+
+  .section-one-content {
+    padding-top: 100px;
+    padding-bottom: 50px;
+  }
+}
+
+.section-two {
+  width: 100%;
+  min-height: 100vh;
+  //background: #191D21;
+  background: url("../../assets/img/bg.png") repeat;
+  .section-two-content {
+    padding-top: 100px;
+    padding-bottom: 50px;
+  }
+}
+
+.btn-facebook {
+  background: whitesmoke;
+  color: #366bcf !important;
+  transform: scale(1);
+  box-shadow: 2px 2px 4px #ffffff;
+  transition: all 0.5s ease;
+}
+
+.btn-facebook:hover {
+  transform: scale(0.95);
+  box-shadow: none;
+}
+

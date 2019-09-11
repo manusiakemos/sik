@@ -1,0 +1,77 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use Yajra\DataTables\DataTables;
+
+use App\Http\Resources\{{ModelName}}Resource;
+
+use App\{{ModelName}};
+
+class {{ModelName}}Controller extends Controller
+{
+    public function index()
+    {
+        return DataTables::of({{ModelName}}::latest())
+        ->addColumn('action', function($value){
+            $route =[
+                'destroy' => route('user.destroy', $value->id),
+                // 'edit' => route('user.edit', $value->id),
+            ];
+            return view('components.action',[
+                'route' => $route
+            ]);
+        })
+        ->toJson();
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+        $db = new {{ModelName}};
+        $db->name = $request->input('name');
+
+        if ($request->password != null) {
+            $db->password = bcrypt($request->password);
+        }
+        $r = [
+            'message' => '{{ModelName}} Berhasil Ditambahkan',
+        ];
+        return $db->save() ? response()->json($r) : '';
+    }
+
+    public function edit($id)
+    {
+        $data  = {{ModelName}}::find($id);
+        return new {{ModelName}}EditResource({{ModelName}}::find($id));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+        $db = {{ModelName}}::find($id);
+        $db->name = $request->input('name');
+        if ($request->password != null) {
+            $db->password = bcrypt($request->password);
+        }
+        $r = [
+            'message' => '{{ModelName}} Berhasil Diupdate',
+        ];
+        return $db->save() ? response()->json($r) : '';
+    }
+
+    public function destroy($id)
+    {
+        $db = {{ModelName}}::destroy($id);
+        $r = [
+            'message' => '{{ModelName}} Berhasil Dihapus',
+        ];
+        return $db ? response()->json($r) : '';
+    }
+}

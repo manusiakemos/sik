@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito|PT+Sans&display=swap');
+
+body, html{
+  font-family: 'Nunito', sans-serif !important;
+}
+
+.display-1,
+.display-2,
+.display-3,
+.display-4,
+.display-5,
+.display-6,
+.card{
+  font-family: 'PT Sans', sans-serif !important;
+}
+
+.card{
+  -webkit-box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.30);
+  -moz-box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.30);
+  box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.30);
+  .card-news-body{
+    overflow-y: auto;
+  }
+}
+
+.card.card-news{
+  height: 540px;
+}
+
+.bg-primary{
+  background: color(primary) !important;
+}
+.btn-primary{
+  background: color(primary) !important;
+  border: lighten(color(primary), 5%) !important;
+  -webkit-box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.30);
+  -moz-box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.30);
+  box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.30);
+}
+
+.bg-secondary{
+  background: color(secondary) !important;
+}
+.btn-secondary{
+  background: color(secondary) !important;
+  border: lighten(color(secondary), 5%) !important;
+  -webkit-box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.30);
+  -moz-box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.30);
+  box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.30);
+}
+
+.bg-info{
+  background: color(info) !important;
+}
+.btn-info{
+  background: color(info) !important;
+  border: lighten(color(info), 5%) !important;
+  -webkit-box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.50);
+  -moz-box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.50);
+  box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.50);
+}
+
+.bg-dark{
+  background: color(dark) !important;
+}
+.btn-dark{
+  background: color(dark) !important;
+  border: lighten(color(dark), 5%) !important;
+  -webkit-box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.30);
+  -moz-box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.30);
+  box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.30);
+}
+
+
+.form-control,.search {
+  border: 2px solid transparent;
+  height: 42px;
+  border-radius: 2px; -webkit-border-radius: 2px; -moz-border-radius: 2px; -ms-border-radius: 2px; -o-border-radius: 2px;
+  -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  -moz-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  -ms-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  -o-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  -webkit-transition:all 150ms ease-in-out 0s;
+  -moz-transition:all 150ms ease-in-out 0s;
+  -ms-transition:all 150ms ease-in-out 0s;
+  -o-transition:all 150ms ease-in-out 0s;
+  transition:all 150ms ease-in-out 0s;
+}
+.form-control:focus {
+  border-color: #171717;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -ms-box-shadow: none;
+  -o-box-shadow: none;
+  box-shadow: none;
+}
+
+.form-control:focus {
+  border-color: #4c9cef;
+  border-width: 2px;
+}
