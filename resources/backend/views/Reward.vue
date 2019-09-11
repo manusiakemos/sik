@@ -5,9 +5,9 @@
                 <h1>{{ title }}</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active">
-                        <router-link to="home">{{title}}</router-link>
+                        <router-link to="/bidan">Bidan</router-link>
                     </div>
-                    <div class="breadcrumb-item">Datatables</div>
+                    <div class="breadcrumb-item">{{title}}</div>
                 </div>
             </div>
 
@@ -16,8 +16,8 @@
                     <div class="col-lg-12 d-lg-flex">
                         <div class="mr-lg-auto">
                             <button
-                                class="btn btn-sm-block btn-dark mr-1 mt-2"
-                                @click="create"
+                                    class="btn btn-sm-block btn-dark mr-1 mt-2"
+                                    @click="create"
                             >Tambah Reward
                             </button>
                             <button type="button" class="btn btn-sm-block btn-dark mt-2 mr-1" @click="refresh">
@@ -26,12 +26,27 @@
                         </div>
                     </div>
                 </div>
-                <!-- datatables -->
-                <div class="card">
-                    <div class="card-body">
-                        {{this.$route.params.id}}
-                        <data-tables :url="configDt.url" :columns="configDt.columns" selector="dt-Reward"
-                                     ref="dt"></data-tables>
+
+                <user-component :value="bidan"></user-component>
+
+                <div class="row">
+                    <div class="col-md-3" v-for="v in lists">
+                        <div class="card card-danger bg-secondary shadow-dark">
+                            <div class="card-header">
+                                <h4 class="text-danger">
+                                    <span>{{v.data.reward_point}} POINT</span>
+                                </h4>
+                                <div class="card-header-action ml-auto">
+                                    <button class="btn btn-edit btn-primary" @click="edit(v)">Edit</button>
+                                    <button class="btn btn-destroy btn-danger" @click="destroy(v)">Hapus</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <p>
+                                    {{v.tanggal_reward}}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- end-datatables -->
@@ -39,13 +54,22 @@
         </section>
         <!-- modal -->
         <modal
-            :title="titleForm"
-            :callback="action == 'store' ? store : update"
-            id="modal-category"
-            ref="modal"
-            class="modal"
+                :title="titleForm"
+                :callback="action == 'store' ? store : update"
+                id="modal-category"
+                ref="modal"
+                class="modal"
         >
+            <input type="hidden" v-model="bidan.data.bidan_id">
+            <div class="form-group">
+                <text-input v-model="data.data.reward_point" label="Point" :error="errors.reward_point"></text-input>
+            </div>
 
+            <div class="form-group">
+                <label>Tanggal</label>
+                <date-picker v-model="data.data.reward_date"></date-picker>
+                <small class="text-danger" v-if="errors.reward_date">{{ errors.reward_date.join() }}</small>
+            </div>
         </modal>
     </div>
 </template>
@@ -54,18 +78,21 @@
     import {ModelSelect} from "vue-search-select";
     import {mixin} from "../mixin";
     import Modal from "../components/Modal";
-    import DataTables from "../components/DataTables";
     import TextInput from "../components/input/Text";
+    import UserComponent from "../components/UserComponent";
+    import DatePicker from "../components/Datepicker";
 
     export default {
         mixins: [mixin],
         components: {
             Modal,
             ModelSelect,
-            DataTables,
-            TextInput
+            TextInput,
+            UserComponent,
+            DatePicker
         },
         created() {
+            this.getData();
             this.data2 = this.data;
         },
         data() {
@@ -73,19 +100,12 @@
                 action: "store",
                 title: "Reward",
                 titleForm: "Tambah Reward",
-                configDt: {
-                    url: "/api/reward",
-                    columns: [
-                        {title: "Nama Bidan", data: "bidan.bidan_nama" , class:"text-capitalize all"},
-                        {title: "Poin", data: "reward_point"},
-                        {title: "Tanggal", data: "reward_date"},
-                        {title: "Action", data: "action", class: "text-center all"}
-                    ]
-                },
+                lists: "",
+                bidan:"",
                 data: {
                     "data": {
                         "reward_id": "",
-                        "bidan_id": "",
+                        "bidan_id": this.$route.params.id,
                         "reward_point": "",
                         "reward_date": "",
                         "created_at": "",
@@ -102,44 +122,22 @@
                 selectData: {}
             };
         },
-        mounted() {
-            this.initActionDt();
+        computed: {
+            id() {
+                return this.$route.params.id;
+            }
         },
         methods: {
-            initActionDt() {
-                var me = this;
-                $("#dt-Reward")
-                    .on("click", ".btn-edit", function (e) {
-                        e.preventDefault();
-                        e.stopImmediatePropagation();
-                        me.$http.get($(this).attr("href")).then(res => {
-                            me.edit(res.data);
-                        });
-                    })
-                    .on("click", ".btn-destroy", function (e) {
-                        e.preventDefault();
-                        e.stopImmediatePropagation();
-                        me.$swal({
-                            title: "Apakah Kamu Yakin?",
-                            type: "warning",
-                            confirmButtonText: "Ya",
-                            showCancelButton: true,
-                            confirmButtonColor: me.$store.state.primary_color,
-                            cancelButtonText: "Tidak"
-                        }).then(result => {
-                            if (result.value) {
-                                me.$http.delete($(this).attr("href")).then(res => {
-                                    if (res.status) {
-                                        me.$noty.warning(res.data.message);
-                                        me.refresh();
-                                    }
-                                });
-                            }
-                        });
-                    });
+            getData() {
+                this.$http.get(`/api/reward-bidan/${this.id}`).then(res => {
+                    this.lists = res.data;
+                });
+                this.$http.get(`/api/bidan/${this.id}`).then(res => {
+                    this.bidan = res.data;
+                });
             },
             refresh() {
-                this.$refs.dt.refresh();
+                this.getData();
             },
             create() {
                 this.data = _.cloneDeep(this.data2);
@@ -151,7 +149,7 @@
                 this.sendData({
                     url: this.data.links.store,
                     method: "post",
-                    data: this.data
+                    data: this.data.data
                 });
             },
             edit(value) {
@@ -164,7 +162,28 @@
                 this.sendData({
                     url: this.data.links.update,
                     method: "put",
-                    data: this.data
+                    data: this.data.data
+                });
+            },
+            destroy(value)
+            {
+                var me = this;
+                me.$swal({
+                    title: "Apakah Kamu Yakin?",
+                    type: "warning",
+                    confirmButtonText: "Ya",
+                    showCancelButton: true,
+                    confirmButtonColor: me.$store.state.primary_color,
+                    cancelButtonText: "Tidak"
+                }).then(result => {
+                    if (result.value) {
+                        me.$http.delete(value.links.destroy).then(res => {
+                            if (res.status) {
+                                me.$noty.warning(res.data.message);
+                                me.refresh();
+                            }
+                        });
+                    }
                 });
             }
         }

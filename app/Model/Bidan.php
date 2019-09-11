@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -22,11 +23,16 @@ class Bidan extends Model
 
     public function puskesmas()
     {
-        return $this->belongsTo(Puskesmas::class, 'puskesmas_id', 'puskesmas_id');
+        return $this->belongsTo(Puskesmas::class, 'puskesmas_id', 'puskesmas_id')->withTrashed();
     }
 
     public function kelurahan()
     {
         return $this->belongsTo(Kelurahan::class, 'kelurahan_id', 'kelurahan_id');
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'bidan_id', 'bidan_id')->withTrashed();
     }
 }

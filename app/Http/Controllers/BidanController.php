@@ -114,13 +114,15 @@ class BidanController extends Controller
      */
     public function show($id)
     {
-        return new BidanResource(Bidan::with('kelurahan')->with('puskesmas')->find($id));
+        return new BidanResource(Bidan::with(['puskesmas', 'user', 'kelurahan'])->find($id));
     }
+
 
     /**
      * @param Request $request
      * @param $id
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|string
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, $id)
     {
