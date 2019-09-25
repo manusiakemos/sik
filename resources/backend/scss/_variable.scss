@@ -24,7 +24,8 @@ $colors: (
 	section_title_line:   map-get($colors,"primary"),
 );
 
-$font_family: 'San-Francisco', 'Source Sans Pro', 'Segoe UI', arial;
+$font_family: 'Source Sans Pro', sans-serif;
+$font-family2: 'Ubuntu', sans-serif;
 $font_weight: 400;
 $font_size: 14px;
 

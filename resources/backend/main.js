@@ -93,6 +93,11 @@ Vue.use(VueHtmlToPaper, options);
 import ToggleButton from 'vue-js-toggle-button'
 Vue.use(ToggleButton);
 
+//global registration
+import VueTabs from 'vue-nav-tabs'
+import 'vue-nav-tabs/themes/vue-tabs.css'
+Vue.use(VueTabs)
+
 new Vue({
   router,
   store,

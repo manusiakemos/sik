@@ -99,7 +99,8 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
 
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
+  font-weight: 300;
+  font-family: $font-family2;
 }
 
 p, ul:not(.list-unstyled), ol {

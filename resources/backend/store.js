@@ -11,6 +11,16 @@ const store = new Vuex.Store({
   state: {
     search: "",
     // app_name: process.env.MIX_PUSHER_APP_NAME,
+    detail:{
+      show:false,
+      data:'',
+      target:''
+    },
+    riwayat:{
+      show:false,
+      data:'',
+      target:''
+    },
     app_name: "SIK TABALONG",
     auth: {
       loggedIn: false,
@@ -18,7 +28,7 @@ const store = new Vuex.Store({
       user: null
     },
     primary_color: "#2858af",
-    selected:""
+    selected:"",
   },
   mutations: {
     _loggedIn(state, value) {
@@ -35,6 +45,12 @@ const store = new Vuex.Store({
     },
     _selected(state, value){
       state.selected = value;
+    },
+    _detail(state, value){
+      state.detail = value;
+    },
+    _riwayat(state, value){
+      state.riwayat = value;
     }
 
   },

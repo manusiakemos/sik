@@ -40,7 +40,29 @@ class PregnancyProcessResource extends JsonResource
                 'update_to_done' => $this->update_to_done,
                 'update_to_send' => $this->update_to_send,
             ],
+            'mod' => [
+                'created_at' => tanggal_indo($this->created_at),
+                'update_to_born' => tanggal_indo($this->update_to_born),
+                'update_to_done' => tanggal_indo($this->update_to_done),
+                'update_to_send' => tanggal_indo($this->update_to_send),
+                'show_detail' => false,
+                'show_riwayat' => false,
+                'show_edit_status' => false,
+                'foto_kk' => $this->pp_imagekk
+                    ? asset('uploads/'.$this->pp_imagekk)
+                    : asset('assets/img/news/img01.jpg'),
+                'buku_nikah' => $this->pp_imagebukunikah
+                    ? asset('uploads/'.$this->pp_imagebukunikah)
+                    : asset('assets/img/news/img01.jpg'),
+                'ktp_ayah' => $this->pp_imagektp_ayah
+                    ? asset('uploads/'.$this->pp_imagektp_ayah)
+                    : asset('assets/img/news/img01.jpg'),
+                'ktp_ibu' => $this->pp_imagektp_ibu
+                    ? asset('uploads/'.$this->pp_imagektp_ibu)
+                    : asset('assets/img/news/img01.jpg'),
+            ],
             'detail' => PregnancyProcessDetailResource::collection($this->detail),
+            'bidan' => $this->bidan,
             'links' => [
                 'update' => route('pregnancyprocess.update', $this->pp_id),
                 'destroy' => route('pregnancyprocess.destroy', $this->pp_id)

@@ -9,47 +9,135 @@
                     </div>
                 </div>
             </div>
-            <!-- if super admin -->
             <div class="section-body">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Dashboard</h4>
-                    </div>
-                    <div class="card-body">
-                        <pre>{{lists}}</pre>
+                <pregnancy-tabs class="bg-primary"></pregnancy-tabs>
+            </div>
+        </section>
+        <!--modal-detail-->
+        <modal id="modal-detail"
+               :title="data && data.data ? data.data.pp_code : 'Detail'"
+               ref="modal"
+               type="lg"
+               class="modal">
+            <div class="row" v-if="data && data.data">
+                <div class="col-12 text-center mb-3">
+                    <a :href="data.mod.foto_kk" target="_blank">
+                        <img :src="data.mod.foto_kk" alt="foto kk" class="img-fluid">
+                    </a>
+                </div>
+                <div class="col-12 text-center mb-3">
+                    <a :href="data.mod.buku_nikah" target="_blank">
+                        <img :src="data.mod.buku_nikah" alt="buku nikah" class="img-fluid">
+                    </a>
+                </div>
+                <div class="col-12">
+                    <div class="card shadow mt-3">
+                        <div class="card-body">
+                            <div><span class="badge badge-danger">{{data.data.pp_status}}</span></div>
+                            <div>
+                                <h6 class="display-6 text-primary mt-3">Nomor KK {{data.data.pp_nokk}}</h6>
+                            </div>
+                            <p>
+                                Alamat Paket <i>{{data.data.pp_alamat_paket}}</i>
+                            </p>
+                        </div>
                     </div>
                 </div>
+                <!--ibu-->
+                <div class="col-12">
+                    <a :href="data.mod.ktp_ibu" target="_blank">
+                        <div class="card card-primary shadow">
+                            <img :src="data.mod.ktp_ibu" alt="foto kk" class="img-card-top">
+                            <div class="card-body">
+                                <div>
+                                    <h6 class="display-6 text-primary mt-3">Nomor KTP Ibu
+                                        {{data.data.pp_noktp_ibu}}</h6>
+                                </div>
+                                <p class="text-dark">
+                                    Nama Ibu : {{data.data.pp_nama_ibu}}
+                                </p>
+                                <p class="text-dark">
+                                    Gol Darah : {{data.data.pp_goldarah_ibu}}
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!--ayah-->
+                <div class="col-12">
+                    <a :href="data.mod.ktp_ayah" target="_blank">
+                        <div class="card card-primary shadow">
+                            <img :src="data.mod.ktp_ayah" alt="foto kk" class="img-card-top">
+                            <div class="card-body">
+                                <div>
+                                    <h6 class="display-6 text-primary mt-3">Nomor KTP Ayah
+                                        {{data.data.pp_noktp_ayah}}</h6>
+                                </div>
+                                <p class="text-dark">
+                                    Nama Ayah : {{data.data.pp_nama_ayah}}
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
-            <!-- end if super admin -->
-        </section>
+        </modal>
+
+        <!--modal-riwayat-->
+        <modal type="md" id="modal-riwayat" title="Riwayat">
+            <div class="list-group" v-if="data && data.data && data.detail.length > 0">
+                <div v-for="v in data.detail"
+                        class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{v.data.ppd_status}}</h5>
+                        <b>{{v.data.ppd_date}}</b>
+                    </div>
+                    <p class="mb-1">
+                        {{v.data.ppd_note}}
+                    </p>
+                    <!--<small>{{v.data.ppd_point}}POIN</small>-->
+                </div>
+            </div>
+            <h4 v-else>Tidak ada riwayat</h4>
+        </modal>
     </div>
 </template>
 
 <script>
+    import {mixin} from "../mixin";
+    import PregnancyTabs from "../components/sik/PregnanyTabs";
+    import Modal from "../components/Modal";
 
     export default {
+        mixins: [mixin],
+        components: {
+            PregnancyTabs, Modal
+        },
         data() {
             return {
+                data: '',
                 title: "Dashboard",
-                result: "",
-                data: "",
-                lists: [],
-                show: false,
                 canvas_base64: "",
-                year_month: "",
-                my_chart_data: ""
             };
+        },
+        watch: {
+            detail() {
+                this.showDetail()
+            },
+            riwayat() {
+                this.showRiwayat()
+            }
         },
         computed: {
             auth_user() {
                 return this.$store.state.auth.user;
+            },
+            detail() {
+                return this.$store.state.detail;
+            },
+            riwayat() {
+                return this.$store.state.riwayat;
             }
-        },
-        created() {
-            this.getData();
-        },
-        mounted() {
-            this.listenPusher();
         },
         methods: {
             print(selector) {
@@ -59,29 +147,13 @@
                     this.$htmlToPaper(selector);
                 })
             },
-            getData() {
-                this.$http.get('/api/pregnancyprocess').then(res => {
-                    if (res.data) {
-                        this.show = true
-                    }
-                    this.lists = res.data;
-                })
+            showDetail() {
+                this.showModal(this.detail.target);
+                this.data = this.detail.data;
             },
-            listenPusher() {
-                Echo.channel('new-born-channel')
-                    .listen('.new-born-event', (e) => {
-                        this.$swal('Perhatian', 'Ada kelahiran baru');
-                        // this.getData();
-                        var url = e.route;
-
-                        this.$http.get(url).then(res => {
-                            this.data = res.data;
-                            var f = _.find(this.lists, res.data);
-                            if(!f){
-                                this.lists.push(res.data);
-                            }
-                        })
-                    });
+            showRiwayat() {
+                this.showModal(this.riwayat.target);
+                this.data = this.riwayat.data;
             },
         }
     };

@@ -58,4 +58,37 @@ class ApiController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function selectStatus()
+    {
+        $role = auth()->user()->user_level;
+//        'bidan','capil','kominfo'
+//        'new','born','done','send'
+        $select = [];
+        if($role == 'capil'){
+             $select = [
+                [
+                    'value' => 'born',
+                    'text' => 'born'
+                ],
+                [
+                    'value' => 'done',
+                    'text' => 'done'
+                ],
+            ];
+        }elseif ($role == 'kominfo'){
+             $select = [
+                [
+                    'value' => 'done',
+                    'text' => 'done'
+                ],
+                [
+                    'value' => 'send',
+                    'text' => 'send'
+                ],
+            ];
+        }
+
+        return response()->json($select);
+    }
 }

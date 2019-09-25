@@ -1,11 +1,4 @@
-// @import url('//fonts.googleapis.com/css?family=Nunito:400,600,700,800');
-
-@font-face {
-font-family: "San-Francisco";
-src: url("../../assets/fonts/san-francisco/sf-ui-display-regular-webfont.woff");
-}
-
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro|Ubuntu:500&display=swap');
 
 :root {
   /* Colors */
@@ -26,7 +19,6 @@ body, html {
 body {
   background: color(body);
   font-size: $font_size;
-  font-weight: $font_weight;
   font-family: $font_family;
   color: color(font);
 }
@@ -430,3 +422,24 @@ pre {
   background-size: cover;
 }
 
+div.section-header > h1 {
+  font-family: $font-family2;
+  text-transform: uppercase;
+  font-size: 16px !important;
+}
+
+#sidebar-wrapper > ul > li > a > span {
+  font-family: $font-family2;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+#app-name-text{
+  font-family: $font-family2;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.form-control{
+  border-radius: 1px;
+}

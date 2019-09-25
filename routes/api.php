@@ -9,6 +9,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('kelurahan', 'ApiController@kelurahanTabalong');
     Route::post('select-pegawai', 'ApiController@selectPegawai');
     Route::post('select-bidan', 'ApiController@selectBidan');
+    Route::post('select-status', 'ApiController@selectStatus');
 //    end api cotnroller route
     Route::get('home', 'HomeController@home');
     Route::resource('pregnancyprocess', 'PregnancyProcessController')->except(['edit', 'create']);

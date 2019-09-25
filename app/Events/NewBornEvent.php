@@ -24,6 +24,7 @@ class NewBornEvent implements ShouldBroadcast
 
     public function __construct($route)
     {
+        //route pp id show
         $this->route = $route;
     }
 

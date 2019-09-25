@@ -2,7 +2,7 @@
     <div class="main-sidebar">
         <aside id="sidebar-wrapper">
             <div class="sidebar-brand">
-                <router-link to="/" class="text-dark">{{ app_name }}</router-link>
+                <router-link to="/" class="text-dark" id="app-name-text">{{ app_name }}</router-link>
             </div>
             <div class="sidebar-brand sidebar-brand-sm">
                 <router-link to="/" class="text-dark">
