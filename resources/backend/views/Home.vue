@@ -113,6 +113,11 @@
         components: {
             PregnancyTabs, Modal
         },
+        created(){
+            this.$http.get('/api/setting').then(res=>{
+                this.$store.commit("_setting", res.data);
+            });
+        },
         data() {
             return {
                 data: '',

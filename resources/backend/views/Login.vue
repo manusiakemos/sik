@@ -80,11 +80,6 @@
 				errors: ""
 			};
 		},
-        created(){
-			this.axios.get('/api/setting').then(res=>{
-			    this.$store.commit("_setting", res.data);
-			})
-        },
 		methods: {
 			submitLogin() {
 				this.errors = "";
