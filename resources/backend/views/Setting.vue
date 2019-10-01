@@ -29,14 +29,17 @@
                 <!-- datatables -->
                 <div class="card card-primary" v-for="value in lists">
                     <div class="card-header">
-                        <h4 class="text-uppercase"> {{value.data.name}}</h4>
+                        <h4 class="text-uppercase">
+                            {{value.data.setting_name}}
+                        </h4>
                         <div class="card-header-action">
                             <button class="btn btn-dark" @click="edit(value)">Edit</button>
                             <!--<button class="btn btn-dark" @click="destroy(value)">Destroy</button>-->
                         </div>
                     </div>
                     <div class="card-body">
-                       <div v-html="value.data.value"></div>
+                       <!--<div v-html="value.data.value"></div>-->
+                        {{value.data.setting_value}}
                     </div>
                 </div>
                 <!-- end-datatables -->
@@ -50,15 +53,20 @@
                 ref="modal"
                 class="modal"
         >
-            <div class="form-group">
-                <label>Nama</label>
-                <input type="text" class="form-control" v-model="data.data.name"/>
-                <small class="text-danger" v-if="this.errors.name">{{ this.errors.name.join() }}</small>
-            </div>
+            <!--<div class="form-group">-->
+                <!--<label>Nama</label>-->
+                <!--<input type="text" class="form-control" v-model="data.data.name"/>-->
+                <!--<small class="text-danger" v-if="this.errors.name">{{ this.errors.name.join() }}</small>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+                <!--<label>Value</label>-->
+                <!--<my-editor v-model="data.data.value"></my-editor>-->
+                <!--<small class="text-danger" v-if="this.errors.value">{{ this.errors.value.join() }}</small>-->
+            <!--</div>-->
             <div class="form-group">
                 <label>Value</label>
-                <my-editor v-model="data.data.value"></my-editor>
-                <small class="text-danger" v-if="this.errors.value">{{ this.errors.value.join() }}</small>
+                <input type="text" class="form-control" v-model="data.data.setting_value"/>
+                <small class="text-danger" v-if="this.errors.setting_value">{{ this.errors.setting_value.join() }}</small>
             </div>
         </modal>
     </div>
@@ -110,6 +118,7 @@
             initActionDt() {
                 this.$http.get('/api/setting').then(res => {
                     this.lists = res.data;
+                    this.$store.commit("_setting", res.data);
                 })
             },
             refresh() {

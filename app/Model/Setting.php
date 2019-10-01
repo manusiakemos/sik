@@ -9,4 +9,6 @@ class Setting extends Model
     protected $table = "_setting";
 
     protected $primaryKey = "setting_id";
+
+    public $timestamps = false;
 }

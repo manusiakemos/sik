@@ -1,5 +1,5 @@
 <template>
-    <div class="container p-3">
+    <div class="p-3">
         <vue-tabs activeTabColor="#F9DA7F" activeTextColor="#535B61" type="tabs" :centered="false" v-if="role == 'capil'">
             <v-tab title="Born">
                 <born status="born" ref="bornRef"></born>

@@ -18,8 +18,8 @@ class SettingResource extends JsonResource
           'data' => parent::toArray($request),
           'links' =>[
               'store' => route('setting.store'),
-              'update' => route('setting.update', $this->id),
-              'destroy' => route('setting.destroy', $this->id)
+              'update' => route('setting.update', $this->setting_id),
+              'destroy' => route('setting.destroy', $this->setting_id)
           ]
         ];
     }

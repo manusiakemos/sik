@@ -10,7 +10,7 @@ class SettingController extends Controller
 {
     public function index()
     {
-        return SettingResource::collection(Setting::all());
+        return SettingResource::collection(Setting::whereIn('setting_id', [6])->get());
     }
 
     public function show($id)
@@ -39,8 +39,8 @@ class SettingController extends Controller
     public function update(Request $request, $id)
     {
         $db = Setting::find($id);
-        $db->name = $request->name;
-        $db->value = $request->value;
+//        $db->name = $request->name;
+        $db->setting_value = $request->setting_value;
         return $db->save()
             ? response()->json([
                 "status" => true,

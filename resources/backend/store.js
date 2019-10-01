@@ -10,6 +10,7 @@ const vuexLocal = new VuexPersistence({
 const store = new Vuex.Store({
   state: {
     search: "",
+    setting:"",
     // app_name: process.env.MIX_PUSHER_APP_NAME,
     detail:{
       show:false,
@@ -51,6 +52,9 @@ const store = new Vuex.Store({
     },
     _riwayat(state, value){
       state.riwayat = value;
+    },
+    _setting(state, value){
+      state.setting = value;
     }
 
   },

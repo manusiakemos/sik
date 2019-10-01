@@ -114,7 +114,7 @@ class BidanController extends Controller
      */
     public function show($id)
     {
-        return new BidanResource(Bidan::with(['puskesmas', 'user', 'kelurahan', 'reward'])->find($id));
+        return new BidanResource(Bidan::with(['puskesmas', 'user', 'kelurahan'])->find($id));
     }
 
 
