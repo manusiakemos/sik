@@ -18,7 +18,6 @@ class Bidan extends Model
     {
         return $query->leftJoin('_puskesmas', '_puskesmas.puskesmas_id', '=', '_bidan.puskesmas_id')
             ->leftJoin('_kelurahan', '_kelurahan.kelurahan_id', '=', '_bidan.kelurahan_id');
-
     }
 
     public function reward()

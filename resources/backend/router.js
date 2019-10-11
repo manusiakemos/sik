@@ -22,6 +22,8 @@ import Bidan from "./views/Bidan";
 
 import Reward from "./views/Reward";
 
+import RequestPoint from "./views/RequestPoint";
+
 // import UserCreate from './views/UserCreate';
 
 Vue.use(VueRouter);
@@ -65,6 +67,14 @@ const router = new VueRouter({
         {
           path: '/puskesmas',
           component: Puskesmas,
+          meta: {
+            requiresAuth: true,
+            role: 'kominfo'
+          }
+        },
+        {
+          path: '/point',
+          component: RequestPoint,
           meta: {
             requiresAuth: true,
             role: 'kominfo'

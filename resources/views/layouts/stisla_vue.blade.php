@@ -8,6 +8,7 @@
     <title>{{ config('app.name') }}</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="icon" href="{{ asset('images/tabalong-square.png') }}">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     {{-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> --}}
     {{--@laravelPWA--}}
 </head>

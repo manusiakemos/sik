@@ -3,13 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\RewardResource;
+use App\Model\Bidan;
+use App\Model\PregnancyProcessDetail;
 use App\Model\Reward;
 use App\Repositories\QueryRepository;
-use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 
 class RewardController extends Controller
 {
+
+    public function index()
+    {
+        $data = QueryRepository::sortRewardByStatus('request')->get();
+        return RewardResource::collection($data);
+    }
 
     public function getRewardSetting()
     {
@@ -20,7 +27,7 @@ class RewardController extends Controller
      * @param $bidan_id
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index($bidan_id)
+    public function rewardBidan($bidan_id)
     {
         $data = QueryRepository::sortRewardByBidan($bidan_id)->get();
         return RewardResource::collection($data);
@@ -47,6 +54,23 @@ class RewardController extends Controller
         return $db->save() ? responseJson('Reward berhasil ditambahkan') : '';
     }
 
+    public function update(Request $request, $id)
+    {
+        $db = Reward::find($id);
+        $db->reward_status = $request->reward_status;
+        $db->save();
+
+        switch ($request->reward_status) {
+            case 'cancel':
+                $msg = 'Ditolak';
+                break;
+            case 'verify':
+                $msg = 'Diterima';
+                break;
+        }
+        return responseJson('Reward berhasil '.$msg);
+    }
+
 
     /**
      * @param $id
@@ -67,5 +91,22 @@ class RewardController extends Controller
     {
         $data = QueryRepository::poinRewardBalance($bidan_id)->first();
         return $data;
+    }
+
+    public function history()
+    {
+        /* $bidan = Bidan::all();
+         foreach ($bidan as $value){
+             return $this->getHistory(1,$value->bidan_id);
+         }*/
+    }
+
+    public function getHistory($page, $bidan_id)
+    {
+
+        $data = QueryRepository::getHistory($page, $bidan_id);
+
+        return $data;
+
     }
 }

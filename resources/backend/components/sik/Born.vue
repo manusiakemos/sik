@@ -4,43 +4,27 @@
         <div class="row">
             <div class="col-12">
                 <div class="form-group m-0">
-                    <input type="search" class="form-control form-control-sm w-25 shadow-lg"
-                           placeholder="filter data"
-                           v-model="search" @input="getData">
+                    <el-input placeholder="filter data"
+                              v-model="search" @change="getData"></el-input>
                 </div>
             </div>
             <div class="col-lg-4" v-for="v in lists.data">
-                <div class="card shadow-lg mt-4 mb-0">
+                <div class="card border shadow-sm mt-4 mb-0">
                     <div class="card-header">
                         <h4 class="text-danger" v-if="status=='born'">{{v.data.pp_code}}</h4>
                         <h4 class="mb-1 text-success" v-else-if="status=='done'">{{v.data.pp_code}}</h4>
                         <h4 class="mb-1 text-primary" v-else>{{v.data.pp_code}}</h4>
                         <div class="card-header-action">
                             <button class="btn btn-dark ml-auto" @click="showDetail(v)">Detail</button>
-                            <button class="btn btn-dark ml-1"  @click="showRiwayat(v)">Riwayat</button>
+                            <button class="btn btn-dark ml-1" @click="showRiwayat(v)">Riwayat</button>
                         </div>
                     </div>
                     <div class="card-body">
                         <div v-if="v.data">
                             <table class="table table-sm">
                                 <tr>
-                                    <td width="100px">Status</td>
-                                    <td v-if="v.mod.show_edit_status == false"> :
-                                        <a href="#" v-on:click.prevent="v.mod.show_edit_status = true">
-                                    <span class="badge badge-danger badge-sm shadow text-uppercase">
-                                    {{ v.data.pp_status}} <span class="fa fa-edit"></span>
-                                </span>
-                                        </a>
-                                    </td>
-                                    <td v-else>
-                                        <div class="d-flex d-inline-block">
-                                            <select-status v-model="v.data.pp_status"></select-status>
-                                            <a href="#" v-on:click.prevent="save(v)">
-                                                <div class="ml-1 badge badge-danger badge-sm shadow text-uppercase">
-                                                    Simpan <i class="fa fa-save"></i>
-                                                </div>
-                                            </a>
-                                        </div>
+                                    <td colspan="2">
+                                        <select-status v-model="v.data.pp_status" @input="save(v)"></select-status>
                                     </td>
                                 </tr>
                                 <tr>
@@ -72,7 +56,7 @@
                 </div>
             </div>
             <div class="col-12">
-                <button class="btn btn-dark btn-block mt-3" @click="loadMore">Muat lebih banyak</button>
+                <button class="btn btn-outline-dark btn-block mt-5 mb-5" @click="loadMore">Muat lebih banyak</button>
             </div>
         </div>
     </div>
@@ -141,35 +125,11 @@
                 }
             },
             listenEvent() {
-                if (this.status == 'born' && this.$store.state.auth.user.role == 'capil') {
-                    Echo.channel('new-born-channel')
-                        .listen('.new-born-event', (e) => {
-                            this.$swal('Perhatian', 'Ada kelahiran baru');
-                            this.getData();
-                            // var url = e.route;
-                            /*this.$http.get(url).then(res => {
-                                var f = _.find(this.lists.data, res.data);
-                                if (!f) {
-                                    this.lists.push(res.data);
-                                }
-                            })*/
-                        });
-                }
-
-                if (this.status == 'done' && this.$store.state.auth.user.role == 'kominfo') {
-                    Echo.channel('new-born-channel')
-                        .listen('.new-born-event', (e) => {
-                            this.$swal('Perhatian', 'Ada kelahiran baru');
-                            this.getData();
-                            // var url = e.route;
-                            /*this.$http.get(url).then(res => {
-                                var f = _.find(this.lists.data, res.data);
-                                if (!f) {
-                                    this.lists.push(res.data);
-                                }
-                            })*/
-                        });
-                }
+                Echo.channel('new-born-channel')
+                    .listen('.new-born-event', (res) => {
+                        this.$noty.info('Update Dashboard kelahiran');
+                        this.getData();
+                    });
             },
             showDetail(v) {
                 var show = this.$store.state.detail;

@@ -1,34 +1,32 @@
 <template>
-    <div class="container">
-        <el-tabs v-model="activeName" @tab-click="handleClick" v-if="role == 'kominfo'">
-            <el-tab-pane label="Done" name="first">
-                <born status="done" ref="doneRef2"></born>
-            </el-tab-pane>
-            <el-tab-pane label="Send" name="second">
-                <born status="send" ref="sendRef"></born>
-            </el-tab-pane>
-        </el-tabs>
-        <el-tabs v-model="activeName" @tab-click="handleClick" v-else>
-            <el-tab-pane label="Born" name="first">
+    <div class="p-3">
+        <vue-tabs activeTabColor="#F9DA7F" activeTextColor="#535B61" type="tabs" :centered="false" v-if="role == 'capil'">
+            <v-tab title="Born">
                 <born status="born" ref="bornRef"></born>
-            </el-tab-pane>
-            <el-tab-pane label="Done" name="second">
+            </v-tab>
+
+            <v-tab title="Done">
                 <born status="done" ref="doneRef"></born>
-            </el-tab-pane>
-        </el-tabs>
+            </v-tab>
+        </vue-tabs>
+        <vue-tabs activeTabColor="#F9DA7F" activeTextColor="#535B61" type="tabs" :centered="false" v-else>
+            <v-tab title="Done">
+                <born status="done" ref="doneRef2"></born>
+            </v-tab>
+
+            <v-tab title="Send">
+                <born status="send" ref="sendRef"></born>
+            </v-tab>
+        </vue-tabs>
     </div>
 </template>
+
 <script>
     import Born from "./Born";
 
     export default {
         components: {
             Born
-        },
-        data() {
-            return {
-                activeName: 'first'
-            };
         },
         computed: {
             role() {
@@ -38,13 +36,13 @@
         methods: {
             refresh() {
                 var role = this.role;
-                /*if (role == 'capil') {
+                if (role == 'capil') {
                     this.refreshBorn();
                     this.refreshDone();
                 } else {
                     this.refreshDone2();
                     this.refreshSend();
-                }*/
+                }
             },
             refreshBorn() {
                 this.$refs.bornRef.getData();
@@ -57,10 +55,17 @@
             },
             refreshSend() {
                 this.$refs.sendRef.getData();
-            },
-            handleClick(tab, event) {
-                console.log(tab, event);
             }
         }
     }
 </script>
+
+<style>
+    .title.title_center{
+        color: white;
+    }
+    .nav-tabs-navigation{
+        background: #55BCCA;
+        padding: 10px;
+    }
+</style>

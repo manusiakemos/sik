@@ -96,7 +96,11 @@ Vue.use(ToggleButton);
 //global registration
 import VueTabs from 'vue-nav-tabs'
 import 'vue-nav-tabs/themes/vue-tabs.css'
-Vue.use(VueTabs)
+Vue.use(VueTabs);
+
+import ElementUI from 'element-ui';
+import locale from 'element-ui/lib/locale/lang/id'
+Vue.use(ElementUI,{locale});
 
 new Vue({
   router,

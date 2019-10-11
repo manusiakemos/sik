@@ -16,6 +16,11 @@
                         <i class="fas fa-home"></i>
                         <span>Dashboard</span>
                     </router-link>
+
+                   <!-- <router-link to="/point" class="nav-link">
+                        <i class="fas fa-star"></i>
+                        <span>Point</span>
+                    </router-link>-->
                 </li>
                 <li class="menu-header">Master</li>
 

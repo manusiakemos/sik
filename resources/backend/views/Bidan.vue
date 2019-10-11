@@ -131,6 +131,7 @@
                     columns: [
                         {title: "Nama", data: "bidan_nama", class: "all text-capitalize"},
                         {title: "NIK", data: "bidan_nik", class: "text-capitalize"},
+                        {title: "Poin", data: "poin", class: "text-capitalize"},
                         {title: "PNS", data: "bidan_pns", class: "text-capitalize"},
                         {title: "NIP", data: "bidan_nip", class: "text-capitalize"},
                         {title: "Nomor", data: "bidan_nomor", class: "text-capitalize"},

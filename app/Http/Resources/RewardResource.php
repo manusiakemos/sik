@@ -16,6 +16,9 @@ class RewardResource extends JsonResource
     {
         return [
             'data' => parent::toArray($request),
+            'links' => [
+                'update' => route('reward.update', $this->reward_id)
+            ],
             'tanggal_reward' => tanggal_indo($this->reward_date, true, true),
         ];
     }

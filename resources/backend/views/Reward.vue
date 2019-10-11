@@ -11,13 +11,14 @@
                 </div>
             </div>
             <div class="section-body">
-                <div class="card author-box bg-white shadow-info shadow-lg">
+                <div class="card author-box bg-info shadow-info shadow-lg">
                     <div class="card-header">
-                        <h4 class="font-weight-bold">
-                            TOTAL POIN <span> {{ totalPoin }}</span>
+                        <h4 class="text-white font-weight-bold">
+                            TOTAL POIN <span v-if="totalPoin"> {{ totalPoin }}</span>
                         </h4>
                         <div class="card-header-action">
-                            <button v-if="totalPoin >= setting[0].data.setting_value"
+                            <button
+                                    v-if="totalPoin >= setting_reward"
                                     class="btn btn-sm-block btn-primary mr-1 mt-2 shadow-lg"
                                     @click="create"
                             >Beri Reward
@@ -38,7 +39,7 @@
                             <div class="author-box-name">
                                 {{bidan.data.bidan_nama}}
                             </div>
-                            <div class="author-box-job text-uppercase">
+                            <div class="author-box-job text-white text-uppercase">
                                 {{bidan.desc}}
                                 <br>
                                 {{bidan.nomor}}
@@ -48,31 +49,13 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4" v-for="v in this.poin_reward.data_history">
-                        <div class="card shadow card-primary">
-                            <div class="card-header text-uppercase d-flex">
-                                <h4 :class="headerClass(v.status)">{{v.status}}</h4>
-                                <small class="ml-auto">{{v.date}}</small>
-                            </div>
+                    <div class="col-md-4" v-for="value in bidan.reward_resource">
+                        <div class="card card-danger shadow-lg">
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <strong v-if="v.status != 'reward'">{{v.name_patient}}</strong> <br>
-                                        <small v-if="v.status != 'reward'">{{v.nik_patient}}</small>
-                                    </div>
-                                    <div class="col-4">
-                                        <h5 :class="headerClass(v.status)" v-if="v.status != 'reward'">{{v.point}} PTS</h5>
-                                        <h5 :class="headerClass(v.status)" v-else>- {{v.point}} PTS</h5>
-                                    </div>
-                                </div>
+                                <p> {{value.tanggal_reward}}</p>
+                                <h4 class="text-info"> - {{value.data.reward_point}} POIN</h4>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <button class="btn btn-primary btn-block mb-5" @click="loadMore">Muat lebih banyak</button>
                     </div>
                 </div>
 
@@ -88,7 +71,6 @@
     import TextInput from "../components/input/Text";
     import UserComponent from "../components/UserComponent";
     import DatePicker from "../components/Datepicker";
-
     export default {
         mixins: [mixin],
         components: {
@@ -104,15 +86,14 @@
         },
         data() {
             return {
-                page:1,
                 action: "store",
                 title: "Reward",
                 titleForm: "Tambah Reward",
-                poin_reward:'',
                 poin: {
                     balance: 0,
                     cash: 0
                 },
+                setting_reward:'',
                 lists: "",
                 bidan: "",
                 data: {
@@ -132,9 +113,6 @@
             };
         },
         computed: {
-            setting(){
-                return this.$store.state.setting;
-            },
             id() {
                 return this.$route.params.id;
             },
@@ -163,8 +141,10 @@
                 this.$http.get(`/api/bidan/${this.id}`).then(res => {
                     this.bidan = res.data;
                 });
-                this.getHistoryPoin(false);
 
+                this.$http.get('/api/setting/6').then(res=>{
+                    this.setting_reward = res.data.setting_value;
+                })
             },
             refresh() {
                 this.getData();
@@ -192,46 +172,7 @@
                         });
                     }
                 });
-            },
-            loadMore(){
-                this.getHistoryPoin(true);
-            },
-            getHistoryPoin(push) {
-                if(push){
-                    this.$http.post(`/mobile/user`,{
-                        'act' : 'history',
-                        'bidan_id' : this.id,
-                        'page' : this.page,
-                    }).then(res => {
-                        if(res.data.status){
-                            this.page++;
-                            res.data.data_history.forEach(v=>{
-                                this.poin_reward.data_history.push(v);
-                            })
-                        }else{
-                            this.$noty.info("History tidak ditemukan")
-                        }
-                    });
-                }else{
-                    this.$http.post(`/mobile/user`,{
-                        'act' : 'history',
-                        'bidan_id' : this.id,
-                        'page' : this.page,
-                    }).then(res => {
-                        this.poin_reward = res.data;
-                    });
-                }
-
-            },
-            headerClass(status) {
-                if(status == 'checkup'){
-                    return 'display-6 text-warning';
-                }else if(status == 'reward'){
-                    return 'display-6 text-primary';
-                }else if(status == 'born'){
-                    return 'display-6 text-danger';
-                }
-            },
+            }
         }
     };
 </script>

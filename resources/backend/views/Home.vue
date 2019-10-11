@@ -10,7 +10,22 @@
                 </div>
             </div>
             <div class="section-body">
-                <pregnancy-tabs class="bg-primary"></pregnancy-tabs>
+                <div class="card mb-3" v-if="auth_user.role == 'kominfo'">
+                    <div class="card-header">
+                        <h4>Daftar Permintaan Tukar Point</h4>
+                    </div>
+                    <div class="card-body">
+                        <request-point></request-point>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Daftar Kelahiran</h4>
+                    </div>
+                    <div class="card-body">
+                        <pregnancy-tabs></pregnancy-tabs>
+                    </div>
+                </div>
             </div>
         </section>
         <!--modal-detail-->
@@ -106,12 +121,13 @@
 <script>
     import {mixin} from "../mixin";
     import PregnancyTabs from "../components/sik/PregnanyTabs";
+    import RequestPoint from "../components/sik/RequestPoint";
     import Modal from "../components/Modal";
 
     export default {
         mixins: [mixin],
         components: {
-            PregnancyTabs, Modal
+            PregnancyTabs, Modal, RequestPoint
         },
         created(){
             this.$http.get('/api/setting').then(res=>{

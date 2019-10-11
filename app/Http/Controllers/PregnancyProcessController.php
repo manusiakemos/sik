@@ -49,7 +49,12 @@ class PregnancyProcessController extends Controller
     {
         $db = PregnancyProcess::find($id);
         $db = $this->updateProcess($db, $request);
-        return $db->save() ? responseJson('Status berhasil diupdate') : responseJson('Status gagal diupdate');
+        if ($db->save()) {
+            broadcast(new NewBornEvent(route('pregnancyprocess.show', $id)));
+            return responseJson('Status berhasil diupdate');
+        } else {
+            return responseJson('Status gagal diupdate');
+        }
     }
 
     /**

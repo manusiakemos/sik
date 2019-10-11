@@ -1,8 +1,12 @@
 <template>
-    <select autofocus v-model="value" @input="$emit('input', $event.target.value)" class="form-control form-control-sm w-50" style="border: 2px solid gray">
-        <option value="">Pilih Status</option>
-        <option v-for="option in options" :value="option.value">{{ option.text }}</option>
-    </select>
+    <el-select v-model="propModel" placeholder="Pilih Salah Satu">
+        <el-option
+                v-for="option in options"
+                :key="option.value"
+                :label="option.text"
+                :value="option.value">
+        </el-option>
+    </el-select>
 </template>
 
 <script>
@@ -11,7 +15,19 @@
         data () {
             return {
                 options: [],
+                myValue:'',
             };
+        },
+        computed:{
+            propModel:{
+                get: function () {
+                    return this.value;
+                },
+                // setter
+                set: function (newValue) {
+                    this.$emit("input", newValue);
+                }
+            }
         },
         created(){
             this.axios.post('/api/select-status').then(res=>{

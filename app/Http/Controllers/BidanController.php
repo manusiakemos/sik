@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\BidanResource;
 use App\Model\Bidan;
+use App\Model\PregnancyProcessDetail;
+use App\Model\Reward;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -23,9 +25,34 @@ class BidanController extends Controller
             ->addColumn('action', function ($value) {
                 return view('action.bidan', compact('value'));
             })
-           /* ->addColumn('nama_kelurahan', function ($value){
-                return $value->kelurahan ? $value->kelurahan->kelurahan_nama : '-';
-            })*/
+            ->editColumn('bidan_pns', function ($value) {
+                return boolean_text($value->bidan_pns, 'Ya', 'Tidak');
+            })
+            ->editColumn('bidan_statis', function ($value) {
+                return boolean_text($value->bidan_statis, 'Ya', 'Tidak');
+            })
+            ->addColumn('poin', function ($value) {
+                $balance = PregnancyProcessDetail::selectRaw('sum(ppd_point) as agg')
+                    ->where('bidan_id', $value->bidan_id);
+//                    ->first();
+                $debt = Reward::union($balance)
+                    ->selectRaw('sum(reward_point) as agg')
+                    ->where('bidan_id', $value->bidan_id)
+                    ->where('reward_status', '<>', 'cancel')
+                    ->get();
+                if (count($debt) > 1) {
+                    $data = floatval($debt[1]->agg) - floatval($debt[0]->agg);
+                } else {
+                    $balance = PregnancyProcessDetail::selectRaw('sum(ppd_point) as agg')
+                        ->where('bidan_id', $value->bidan_id)
+                        ->first();
+
+                    $data = $balance->agg;
+                }
+
+//                $data = floatval($debt[1] ? $debt[1]->agg : 0) - floatval($debt[0]->agg);
+                return $data ? $data : 0;
+            })
             ->toJson();
     }
 
@@ -71,22 +98,22 @@ class BidanController extends Controller
         $username = "";
 
         $db = new Bidan;
-        if($request->bidan_statis){
+        if ($request->bidan_statis) {
             $db->puskesmas_id = $request->puskesmas_id;
             $db->kelurahan_id = "";
             $db->bidan_statis = true;
-        }else{
+        } else {
             $db->kelurahan_id = $request->kelurahan_id;
             $db->puskesmas_id = "";
             $db->bidan_statis = false;
         }
 
-        if($request->bidan_pns){
+        if ($request->bidan_pns) {
             $username = $request->bidan_nip;
             $db->bidan_nip = $request->bidan_nip;
             $db->bidan_nomor = "";
             $db->bidan_pns = true;
-        }else{
+        } else {
             $username = $request->bidan_nomor;
             $db->bidan_nomor = $request->bidan_nomor;
             $db->bidan_nip = "";
@@ -128,20 +155,20 @@ class BidanController extends Controller
     {
         $this->rules($request, $id);
         $db = Bidan::find($id);
-        if($request->bidan_statis){
+        if ($request->bidan_statis) {
             $db->puskesmas_id = $request->puskesmas_id;
             $db->kelurahan_id = "";
             $db->bidan_statis = true;
-        }else{
+        } else {
             $db->kelurahan_id = $request->kelurahan_id;
             $db->puskesmas_id = "";
             $db->bidan_statis = false;
         }
-        if($request->bidan_pns){
+        if ($request->bidan_pns) {
             $db->bidan_nip = $request->bidan_nip;
             $db->bidan_nomor = "";
             $db->bidan_pns = true;
-        }else{
+        } else {
             $db->bidan_nomor = $request->bidan_nomor;
             $db->bidan_nip = "";
             $db->bidan_pns = false;
