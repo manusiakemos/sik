@@ -10,7 +10,8 @@
     <link rel="icon" href="{{ asset('images/tabalong-square.png') }}">
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     {{-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> --}}
-    {{--@laravelPWA--}}
+    @laravelPWA
+    {{--<link rel="manifest" href="{{ asset('app-images/manifest.json') }}">--}}
 </head>
 
 <body class="layout-1">

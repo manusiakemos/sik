@@ -1,9 +1,12 @@
 {
-  "theme_color": "#4BA094",
-  "background_color": "#4BA094",
-  "display": "fullscreen",
+  "theme_color": "#56BCC9",
+  "background_color": "#56BCC9",
+  "display": "standalone",
+  "name": "SIK Tabalong",
+  "short_name" : "SIK",
   "Scope": "/",
   "start_url": "/",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "images/icons/icon-72x72.png",

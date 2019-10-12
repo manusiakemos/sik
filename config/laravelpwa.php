@@ -3,19 +3,19 @@
 return [
     'name' => 'E-SPJ',
     'manifest' => [
-        'name' => env('APP_NAME', 'JDIH DPRD TABALONG'),
-        'short_name' => 'JDIH DPRD',
-        'start_url' => '/admin',
-        'background_color' => '#75BEE1',
-        'theme_color' => '#75BEE1',
+        'name' => env('APP_NAME', 'LARAVEL'),
+        'short_name' => env('APP_NAME', 'LARAVEL'),
+        'start_url' => '/',
+        'background_color' => '#56BCC9',
+        'theme_color' => '#56BCC9',
         'display' => 'standalone',
         'orientation'=> 'any',
         'icons' => [
             '72x72' => '/app-images/images/icons/icon-72x72.png',
             '96x96' => '/app-images/images/icons/icon-96x96.png',
             '128x128' => '/app-images/images/icons/icon-128x128.png',
-//            '144x144' => '/app-images/images/icons/icon-144x144.png',
-//            '152x152' => '/app-images/images/icons/icon-152x152.png',
+            '144x144' => '/app-images/images/icons/icon-144x144.png',
+            '152x152' => '/app-images/images/icons/icon-152x152.png',
             '192x192' => '/app-images/images/icons/icon-192x192.png',
             '384x384' => '/app-images/images/icons/icon-384x384.png',
             '512x512' => '/app-images/images/icons/icon-512x512.png'
