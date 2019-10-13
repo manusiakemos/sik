@@ -1,10 +1,10 @@
 // var staticCacheName = "pwa-v" + new Date().getTime();
-var staticCacheName = "pwa-v2.0";
+var staticCacheName = "pwa-v1.3";
 var filesToCache = [
     '/',
     '/offline',
-    // '/css/style.css',
-    // '/js/main.js',
+    '/css/style.css',
+    '/js/main.js',
     '/images/tabalong-square.png',
     '/images/tabalong.png',
     '/app-images/images/icons/icon-72x72.png',
@@ -16,7 +16,6 @@ var filesToCache = [
     '/app-images/images/icons/icon-384x384.png',
     '/app-images/images/icons/icon-512x512.png',
 ];
-
 // Cache on install
 self.addEventListener("install", event => {
     this.skipWaiting();
@@ -54,3 +53,4 @@ self.addEventListener("fetch", event => {
             })
     )
 });
+
