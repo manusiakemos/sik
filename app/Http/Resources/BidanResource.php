@@ -31,7 +31,7 @@ class BidanResource extends JsonResource
             'nomor' => $nomor,
             'data' => parent::toArray($request),
             'user_resource' => new ProfileResource($this->user),
-            'reward_resource' => RewardResource::collection($this->reward),
+//            'reward_resource' => RewardResource::collection($this->reward),
             'links' => [
                 'store' => route('bidan.store'),
                 'update' => route('bidan.update', $this->bidan_id),

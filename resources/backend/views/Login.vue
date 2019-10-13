@@ -14,13 +14,14 @@
 							<div class="text-center">
 								<h4 class="text-uppercase text-primary mb-4">{{$store.state.app_name}}</h4>
 							</div>
-							<form method="POST" action="/login" novalidate v-on:submit.prevent="submitLogin">
+							<form method="POST" autocomplete="off" action="/login" novalidate v-on:submit.prevent="submitLogin">
 								<div class="form-group">
-									<label for="username">username</label>
+									<label for="username">Username</label>
 									<input
 										v-model="data.username"
 										id="username"
 										type="text"
+										autocomplete="username"
 										class="form-control"
 										name="username"
 										tabindex="1"
@@ -34,11 +35,13 @@
 								</div>
 
 								<div class="form-group">
+									<label for="password">Password</label>
 									<input
 										v-model="data.password"
 										id="password"
 										type="password"
 										class="form-control"
+										autocomplete="current-password"
 										name="password"
 										tabindex="2"
 										required

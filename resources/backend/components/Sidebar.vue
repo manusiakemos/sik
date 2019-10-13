@@ -34,7 +34,7 @@
                 <li class="nav-item" v-if="user.role == 'kominfo'">
                     <router-link to="/bidan" class="nav-link">
                         <i class="fas fa-medkit"></i>
-                        <span>Bidan</span>
+                        <span>Bidan/Reward</span>
                     </router-link>
                 </li>
 

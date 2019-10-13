@@ -1,0 +1,32 @@
+$colors: (
+	primary: #56BCC9,
+	secondary: #c0ff70,
+	success: #2dbd72,
+	info: #747af4,
+	warning: #ffa426,
+	danger: #ee7879,
+	light: #e3eaef,
+	grey: #868e96,
+	whitesmoke: #f7f9f9,
+	dark: #353b42,
+	muted: #98a6ad,
+	//body:  linear-gradient(180deg , #75BEE1 10%,   #F7D399 80%),
+	body: #1c1c1c,
+	font: #797a74,
+	fontdark: #34395e,
+	white: #ffffff,
+	facebook:#4267b2,
+	twitter: #3FA5F3,
+	formcontrol_normal_background: #fdfdff,
+	formcontrol_normal_border: #e4e6fc,
+	formcontrol_focus_background: #fefeff,
+	formcontrol_focus_border:  #ffa426,
+	section_title_line:   map-get($colors,"primary"),
+);
+
+$font_family: 'Source Sans Pro', sans-serif;
+$font-family2: 'Ubuntu', sans-serif;
+$font_weight: 400;
+$font_size: 14px;
+
+$grid-breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px) !default;

@@ -48,12 +48,30 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-4" v-for="value in bidan.reward_resource">
-                        <div class="card card-danger shadow-lg">
-                            <div class="card-body">
-                                <p> {{value.tanggal_reward}}</p>
-                                <h4 class="text-info"> - {{value.data.reward_point}} POIN</h4>
+                <div class="card shadow-sm">
+                    <div class="card-header"><h4>Riwayat</h4></div>
+                    <div class="card-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="list-group w-100">
+                                        <div class="list-group-item" v-for="value in rewards">
+                                            <div class="d-md-flex justify-content-between">
+                                                <h6 class="text-primary"> {{value.date}} {{value.status}}</h6>
+                                                <h6 class="text-primary" v-if="value.status=='reward'"> -
+                                                    {{value.point}} POIN</h6>
+                                                <h6 class="text-info" v-else> {{value.point}} POIN</h6>
+                                            </div>
+                                            <div>
+                                                <p v-if="value.status !='reward'">
+                                                    Pasien dengan NIK
+                                                    {{value.nik_patient}} an. {{
+                                                    value.name_patient }}</p>
+                                                <p v-if="value.note">{{value.note}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -70,7 +88,7 @@
     import Modal from "../components/Modal";
     import TextInput from "../components/input/Text";
     import UserComponent from "../components/UserComponent";
-    import DatePicker from "../components/Datepicker";
+
     export default {
         mixins: [mixin],
         components: {
@@ -78,7 +96,6 @@
             ModelSelect,
             TextInput,
             UserComponent,
-            DatePicker
         },
         created() {
             this.getData();
@@ -93,7 +110,8 @@
                     balance: 0,
                     cash: 0
                 },
-                setting_reward:'',
+                page: 1,
+                setting_reward: '',
                 lists: "",
                 bidan: "",
                 data: {
@@ -108,6 +126,7 @@
                     }
                 },
                 data2: null,
+                rewards: '',
                 errors: [],
                 selectData: {}
             };
@@ -117,10 +136,10 @@
                 return this.$route.params.id;
             },
             totalPoin() {
-                if(this.poin.balance !== 0 || this.poin.cash !== 0){
+                if (this.poin.balance !== 0 || this.poin.cash !== 0) {
                     var total = this.poin.balance - this.poin.cash;
                     this.data.data.reward_point = total;
-                }else{
+                } else {
                     var total = '0';
                 }
                 return total;
@@ -129,25 +148,28 @@
         methods: {
             getData() {
                 this.$http.get(`/api/reward-poin-bidan/balance/${this.id}`).then(res => {
-                    if(res.data.balance){
+                    if (res.data.balance) {
                         this.poin.balance = parseInt(res.data.balance);
                     }
                 });
                 this.$http.get(`/api/reward-poin-bidan/cash/${this.id}`).then(res => {
-                    if(res.data.cash){
+                    if (res.data.cash) {
                         this.poin.cash = parseInt(res.data.cash);
                     }
                 });
                 this.$http.get(`/api/bidan/${this.id}`).then(res => {
                     this.bidan = res.data;
                 });
-
-                this.$http.get('/api/setting/6').then(res=>{
+                this.$http.get('/api/setting/6').then(res => {
                     this.setting_reward = res.data.setting_value;
+                });
+                this.$http.get(`/api/reward-bidan/get-history/${this.page}/${this.id}`).then(res => {
+                    this.rewards = res.data;
                 })
             },
             refresh() {
                 this.getData();
+                this.$noty.info('refresh');
             },
             create() {
                 this.data = _.cloneDeep(this.data2);

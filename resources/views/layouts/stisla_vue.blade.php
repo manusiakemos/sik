@@ -7,16 +7,19 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name') }}</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    {{--<link rel="stylesheet" href="{{ asset('css/style_dark.css') }}">--}}
     <link rel="icon" href="{{ asset('images/tabalong-square.png') }}">
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     @laravelPWA
     <script src="{{ asset('register-service-worker.js') }}"></script>
-    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
     <script>
         var OneSignal = window.OneSignal || [];
         OneSignal.push(function() {
             OneSignal.init({
                 appId: "31e318be-9285-4d18-b0c5-fc367f8dc8c4",
+                notifyButton: {
+                    enable: true,
+                },
             });
         });
     </script>
@@ -38,6 +41,7 @@
                 if (isAvailable) {
                    alert('new update available');
                    location.reload(true);
+                   //  console.log('new update available');
                 }
             });
     </script>

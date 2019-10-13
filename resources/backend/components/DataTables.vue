@@ -1,8 +1,8 @@
 <template>
-	<table class="table table-hover" :id="selector">
-		<thead class="bg-primary">
+	<table class="table" :id="selector">
+		<thead>
 			<tr>
-				<th v-for="(v, i) in configDt.columns" :key="i" class="text-white">{{ v.title }}</th>
+				<th v-for="(v, i) in configDt.columns" :key="i" class="text-dark-all">{{ v.title }}</th>
 			</tr>
 		</thead>
 		<slot></slot>

@@ -1,9 +1,10 @@
 // var staticCacheName = "pwa-v" + new Date().getTime();
-var staticCacheName = "pwa-v1.3";
+var staticCacheName = "pwa-v1.17";
 var filesToCache = [
     '/',
     '/offline',
     '/css/style.css',
+    // '/css/style_dark.css',
     '/js/main.js',
     '/images/tabalong-square.png',
     '/images/tabalong.png',
@@ -53,4 +54,6 @@ self.addEventListener("fetch", event => {
             })
     )
 });
+
+importScripts('https://cdn.onesignal.com/sdks/OneSignalSDKWorker.js');
 

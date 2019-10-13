@@ -56,13 +56,13 @@
             </div>
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" class="form-control" v-model="data.data.password"/>
+                <input type="password" autocomplete="new-password" class="form-control" v-model="data.data.password"/>
                 <small class="text-danger" v-if="this.errors.password">{{ this.errors.password.join() }}</small>
             </div>
 
             <div class="form-group">
                 <label>Password Confirmation</label>
-                <input type="password" class="form-control" v-model="data.data.password_confirmation"/>
+                <input type="password" autocomplete="new-password" class="form-control" v-model="data.data.password_confirmation"/>
                 <small class="text-danger" v-if="this.errors.password_confirmation">{{ this.errors.password_confirmation.join() }}</small>
             </div>
         </modal>

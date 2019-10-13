@@ -1,5 +1,5 @@
 <template>
-    <el-select v-model="propModel" placeholder="Pilih Salah Satu">
+    <el-select v-model="propModel" placeholder="Pilih Salah Satu" class="w-100" popper-class="w-sm-100">
         <el-option
                 v-for="option in options"
                 :key="option.value"

@@ -29,7 +29,7 @@ class RewardController extends Controller
      */
     public function rewardBidan($bidan_id)
     {
-        $data = QueryRepository::sortRewardByBidan($bidan_id)->get();
+        $data = QueryRepository::sortRewardByBidan($bidan_id)->paginate();
         return RewardResource::collection($data);
     }
 
@@ -103,10 +103,7 @@ class RewardController extends Controller
 
     public function getHistory($page, $bidan_id)
     {
-
         $data = QueryRepository::getHistory($page, $bidan_id);
-
         return $data;
-
     }
 }
