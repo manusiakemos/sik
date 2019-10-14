@@ -11,15 +11,6 @@
     <link rel="icon" href="{{ asset('images/tabalong-square.png') }}">
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 
-    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
-    <script>
-        var OneSignal = window.OneSignal || [];
-        OneSignal.push(function() {
-            OneSignal.init({
-                appId: "31e318be-9285-4d18-b0c5-fc367f8dc8c4",
-            });
-        });
-    </script>
     @laravelPWA
     <script src="{{ asset('register-service-worker.js') }}"></script>
 </head>
@@ -43,6 +34,7 @@
             }
         });
 </script>
+
 </body>
 
 </html>

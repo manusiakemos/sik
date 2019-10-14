@@ -20,7 +20,7 @@ function sendMessage($message="message",$id="like-button", $text="Like", $icon="
         'included_segments' => array(
             'All'
         ),
-//        "url" => $url,
+        "url" => $url,
 //        'data' => array(
 //            "foo" => "bar"
 //        ),
