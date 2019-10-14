@@ -25,6 +25,6 @@ class RequestPoinListener
      */
     public function handle(RequestPoinEvent $event)
     {
-        sendMessage("Ada permintaan tukar poin bidan", "data-poin", "Tukar Poin", "", "https://sik.tabalongkab.go.id/#/home:");
+        sendMessage("Ada permintaan tukar poin bidan", "data-poin", "Tukar Poin", "", "https://sik.tabalongkab.go.id/#/home");
     }
 }

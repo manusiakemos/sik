@@ -132,10 +132,14 @@ const router = new VueRouter({
     {
       path: '/',
       component: Login,
+      meta: {
+        redirectIfAuth: true,
+      }
     },
   ]
 });
 
+//auth
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (store.state.auth.loggedIn == false) {
@@ -161,17 +165,22 @@ router.beforeEach((to, from, next) => {
         if (splitMetaRole.indexOf(userRole) > -1) {
           next()
           // console.log(userRole == metaRole);
-        }
-        else {
+        } else {
           // console.log(userRole == metaRole)
           next({path: '/'});
         }
       }
       next();
     }
-  }
+  }else if (to.matched.some(record => record.meta.redirectIfAuth)) {
+    if (store.state.auth.loggedIn) {
+      next({
+        path: '/home',
+        // params: { nextUrl: to.fullPath }
+      })
+    }
 
-  else {
+  }else {
     next();
   }
 });

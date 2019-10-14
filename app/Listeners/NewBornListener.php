@@ -26,6 +26,6 @@ class NewBornListener
      */
     public function handle(NewBornEvent $event)
     {
-        sendMessage("Update data kelahiran", "data-kelahiran", "Update", "", "https://sik.tabalongkab.go.id/#/home:");
+        sendMessage("Update data kelahiran", "data-kelahiran", "Update", "", "https://sik.tabalongkab.go.id/#/home");
     }
 }

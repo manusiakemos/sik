@@ -12,14 +12,14 @@ function sendMessage($message="message",$id="like-button", $text="Like", $icon="
     array_push($hashes_array, array(
         "id" => $id,
         "text" => $text,
-        "icon" => $icon,
-        "url" => $url
+        "icon" => $icon
     ));
     $fields = array(
         'app_id' => "31e318be-9285-4d18-b0c5-fc367f8dc8c4",
         'included_segments' => array(
             'All'
         ),
+        "url" => $url,
 //        'data' => array(
 //            "foo" => "bar"
 //        ),
