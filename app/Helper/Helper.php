@@ -2,6 +2,53 @@
 
 use Carbon\Carbon;
 
+function sendMessage($message="message",$id="like-button", $text="Like", $icon="https://sik.tabalongkab.go.id/images/tabalong.png", $url="https://sik.tabalongkab.go.id/#/home")
+{
+    $content = array(
+        "en" => $message,
+        "id" => $message,
+    );
+    $hashes_array = array();
+    array_push($hashes_array, array(
+        "id" => $id,
+        "text" => $text,
+        "icon" => $icon,
+        "url" => $url
+    ));
+    $fields = array(
+        'app_id' => "31e318be-9285-4d18-b0c5-fc367f8dc8c4",
+        'included_segments' => array(
+            'All'
+        ),
+//        'data' => array(
+//            "foo" => "bar"
+//        ),
+        'contents' => $content,
+        'web_buttons' => $hashes_array
+    );
+
+    $fields = json_encode($fields);
+    print("\nJSON sent:\n");
+    print($fields);
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json; charset=utf-8',
+        'Authorization: Basic N2QzYTYwOWQtNzUzOS00OGNkLWJiOTUtYTBhYjNlOThjMzY5'
+    ));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch, CURLOPT_HEADER, FALSE);
+    curl_setopt($ch, CURLOPT_POST, TRUE);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    return $response;
+}
+
 function base64_to_image($data, $path)
 {
     list($type, $data) = explode(';', $data);

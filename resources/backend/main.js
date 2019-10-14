@@ -94,9 +94,9 @@ import ToggleButton from 'vue-js-toggle-button'
 Vue.use(ToggleButton);
 
 //global registration
-import VueTabs from 'vue-nav-tabs'
-import 'vue-nav-tabs/themes/vue-tabs.css'
-Vue.use(VueTabs);
+// import VueTabs from 'vue-nav-tabs'
+// import 'vue-nav-tabs/themes/vue-tabs.css'
+// Vue.use(VueTabs);
 
 import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/id'

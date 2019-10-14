@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\NewBornEvent;
+use App\Events\RequestPoinEvent;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,4 +12,12 @@ class HomeController extends Controller
     {
        broadcast(new NewBornEvent(1));
     }
+
+    public function test()
+    {
+//        sendMessage();
+        broadcast(new RequestPoinEvent());
+//        return "Test Helper";
+    }
 }
+

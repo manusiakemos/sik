@@ -12,6 +12,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('select-status', 'ApiController@selectStatus');
 //    end api cotnroller route
     Route::get('home', 'HomeController@home');
+    Route::get('test', 'HomeController@test');
+
     Route::resource('pregnancyprocess', 'PregnancyProcessController')->except(['edit', 'create']);
     Route::resource('pregnancyprocessdetail', 'PregnancyProcessDetailController')->except(['edit', 'create']);
 
@@ -31,4 +33,5 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('profile', 'ProfileController@edit')->name('profile.edit');
     Route::put('profile', 'ProfileController@update')->name('profile.update');
     Route::post('profile', 'ProfileController@avatar')->name('profile.avatar');
+
 });

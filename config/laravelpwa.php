@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'name' => 'E-SPJ',
+    'name' => env('APP_NAME'),
     'manifest' => [
         'name' => env('APP_NAME', 'LARAVEL'),
         'short_name' => env('APP_NAME', 'LARAVEL'),
-        'start_url' => '/',
+        'start_url' => '/#home',
         'background_color' => '#56BCC9',
         'theme_color' => '#56BCC9',
         'display' => 'standalone',

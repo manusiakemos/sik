@@ -37,6 +37,7 @@
         },
         created() {
             this.getLists();
+            this.listenEcho()
         },
         methods: {
             getLists() {
@@ -62,6 +63,13 @@
                         })
                     }
                 });
+            },
+            listenEcho() {
+                Echo.channel('request-point-channel')
+                    .listen('.request-point-event', (res) => {
+                        this.$noty.info('Ada permintaan tukar poin');
+                        this.getData();
+                    });
             },
         },
     }

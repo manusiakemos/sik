@@ -2,11 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\NewBornEvent;
+use App\Events\RequestPoinEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewBornListener
+class RequestPoinListener
 {
     /**
      * Create the event listener.
@@ -21,11 +21,10 @@ class NewBornListener
     /**
      * Handle the event.
      *
-     * @param  NewBornEvent  $event
      * @return void
      */
-    public function handle(NewBornEvent $event)
+    public function handle(RequestPoinEvent $event)
     {
-        sendMessage("Update data kelahiran", "data-kelahiran", "Update", "", "https://sik.tabalongkab.go.id/#/home:");
+        sendMessage("Ada permintaan tukar poin bidan", "data-poin", "Tukar Poin", "", "https://sik.tabalongkab.go.id/#/home:");
     }
 }
