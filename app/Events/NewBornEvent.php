@@ -20,12 +20,12 @@ class NewBornEvent implements ShouldBroadcast
      * @return void
      */
 
-    public $route;
+    public $cond;
 
-    public function __construct($route)
+    public function __construct($cond=true)
     {
         //route pp id show
-        $this->route = $route;
+        $this->cond = $cond;
     }
 
     /**
@@ -35,7 +35,10 @@ class NewBornEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('new-born-channel');
+        $channel = new Channel('new-born-channel');
+        if($this->cond){
+            return $channel;
+        }
     }
 
     public function broadcastAs()

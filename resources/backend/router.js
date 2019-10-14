@@ -172,12 +172,15 @@ router.beforeEach((to, from, next) => {
       }
       next();
     }
-  }else if (to.matched.some(record => record.meta.redirectIfAuth)) {
+  }
+  else if (to.matched.some(record => record.meta.redirectIfAuth)) {
     if (store.state.auth.loggedIn) {
       next({
         path: '/home',
         // params: { nextUrl: to.fullPath }
       })
+    }else{
+      next()
     }
 
   }else {

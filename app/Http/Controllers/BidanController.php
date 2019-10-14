@@ -91,11 +91,12 @@ class BidanController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|string
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
         $this->rules($request);
-        $username = "";
+        $username = $request->bidan_nik;
 
         $db = new Bidan;
         if ($request->bidan_statis) {
@@ -109,12 +110,12 @@ class BidanController extends Controller
         }
 
         if ($request->bidan_pns) {
-            $username = $request->bidan_nip;
+//            $username = $request->bidan_nik;
             $db->bidan_nip = $request->bidan_nip;
             $db->bidan_nomor = "";
             $db->bidan_pns = true;
         } else {
-            $username = $request->bidan_nomor;
+//            $username = $request->bidan_nik;
             $db->bidan_nomor = $request->bidan_nomor;
             $db->bidan_nip = "";
             $db->bidan_pns = false;

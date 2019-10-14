@@ -1,6 +1,7 @@
 <?php
 // route for single page web apps
 Route::post('login', 'AuthController@login');
+Route::post('broadcast/{type}', 'HomeController@broadcast');
 
 Route::group(['middleware' => ['auth:api']], function () {
 //    begin apicontroller route

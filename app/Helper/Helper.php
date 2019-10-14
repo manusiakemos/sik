@@ -12,14 +12,15 @@ function sendMessage($message="message",$id="like-button", $text="Like", $icon="
     array_push($hashes_array, array(
         "id" => $id,
         "text" => $text,
-        "icon" => $icon
+        "icon" => $icon,
+        "url" => $url,
     ));
     $fields = array(
         'app_id' => "31e318be-9285-4d18-b0c5-fc367f8dc8c4",
         'included_segments' => array(
             'All'
         ),
-        "url" => $url,
+//        "url" => $url,
 //        'data' => array(
 //            "foo" => "bar"
 //        ),
@@ -28,8 +29,10 @@ function sendMessage($message="message",$id="like-button", $text="Like", $icon="
     );
 
     $fields = json_encode($fields);
-    print("\nJSON sent:\n");
-    print($fields);
+//    print("\nJSON sent:\n");
+//    print($fields);
+
+//    echo "send message";
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");

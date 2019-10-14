@@ -1,5 +1,5 @@
 // var staticCacheName = "pwa-v" + new Date().getTime();
-var staticCacheName = "pwa-v1.25";
+var staticCacheName = "pwa-v1.1";
 var filesToCache = [
     '/',
     // '/#/home',
