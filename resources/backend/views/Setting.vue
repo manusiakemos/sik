@@ -27,19 +27,23 @@
                     </div>
                 </div>
                 <!-- datatables -->
-                <div class="card card-primary" v-for="value in lists">
-                    <div class="card-header">
-                        <h4 class="text-uppercase">
-                            {{value.data.setting_name}}
-                        </h4>
-                        <div class="card-header-action">
-                            <button class="btn btn-dark" @click="edit(value)">Edit</button>
-                            <!--<button class="btn btn-dark" @click="destroy(value)">Destroy</button>-->
+                <div class="row">
+                    <div class="col-md-4" v-for="value in lists">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h4 class="text-uppercase">
+                                    {{value.data.setting_name}}
+                                </h4>
+                                <div class="card-header-action">
+                                    <button class="btn btn-dark" @click="edit(value)">Edit</button>
+                                    <!--<button class="btn btn-dark" @click="destroy(value)">Destroy</button>-->
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <!--<div v-html="value.data.value"></div>-->
+                                {{value.data.setting_value}}
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                       <!--<div v-html="value.data.value"></div>-->
-                        {{value.data.setting_value}}
                     </div>
                 </div>
                 <!-- end-datatables -->

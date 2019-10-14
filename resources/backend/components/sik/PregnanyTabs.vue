@@ -1,18 +1,18 @@
 <template>
     <div class="container">
         <el-tabs v-model="activeName" @tab-click="handleClick" v-if="role == 'kominfo'">
-            <el-tab-pane label="Done" name="first">
+            <el-tab-pane label="Diproses" name="first">
                 <born status="done" ref="doneRef2"></born>
             </el-tab-pane>
-            <el-tab-pane label="Send" name="second">
+            <el-tab-pane label="Dikirim" name="second">
                 <born status="send" ref="sendRef"></born>
             </el-tab-pane>
         </el-tabs>
         <el-tabs v-model="activeName" @tab-click="handleClick" v-else>
-            <el-tab-pane label="Born" name="first">
+            <el-tab-pane label="Melahirkan" name="first">
                 <born status="born" ref="bornRef"></born>
             </el-tab-pane>
-            <el-tab-pane label="Done" name="second">
+            <el-tab-pane label="Diproses" name="second">
                 <born status="done" ref="doneRef"></born>
             </el-tab-pane>
         </el-tabs>
@@ -60,7 +60,7 @@
             },
             handleClick(tab, event) {
                 console.log(tab, event);
-            }
+            },
         }
     }
 </script>

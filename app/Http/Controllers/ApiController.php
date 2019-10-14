@@ -69,22 +69,22 @@ class ApiController extends Controller
              $select = [
                 [
                     'value' => 'born',
-                    'text' => 'born'
+                    'text' => 'Melahirkan'
                 ],
                 [
                     'value' => 'done',
-                    'text' => 'done'
+                    'text' => 'Diproses'
                 ],
             ];
         }elseif ($role == 'kominfo'){
              $select = [
                 [
                     'value' => 'done',
-                    'text' => 'done'
+                    'text' => 'Diproses'
                 ],
                 [
                     'value' => 'send',
-                    'text' => 'send'
+                    'text' => 'Dikirim'
                 ],
             ];
         }

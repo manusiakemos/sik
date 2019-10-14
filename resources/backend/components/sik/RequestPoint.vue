@@ -9,8 +9,8 @@
                             {{v.data.bidan.bidan_nama}}
                         </h4>
                         <div class="card-header-action ml-auto">
-                            <button class="btn btn-primary" @click="updateStatus('cancel', v)">Tolak</button>
-                            <button class="btn btn-danger" @click="updateStatus('verify', v)">Terima</button>
+                            <button class="btn btn-primary" @click="updateStatus('verify', v)">Terima</button>
+                            <button class="btn btn-danger" @click="updateStatus('cancel', v)">Tolak</button>
                         </div>
                     </div>
                     <div class="card-body">

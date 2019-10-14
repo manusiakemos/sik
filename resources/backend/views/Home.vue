@@ -133,6 +133,8 @@
             this.$http.get('/api/setting').then(res=>{
                 this.$store.commit("_setting", res.data);
             });
+
+            this.listenChannel();
         },
         data() {
             return {
@@ -175,6 +177,13 @@
             showRiwayat() {
                 this.showModal(this.riwayat.target);
                 this.data = this.riwayat.data;
+            },
+            listenChannel() {
+                Echo.channel('new-born-channel')
+                    .listen('.new-born-event', (res) => {
+                        this.$noty.info('Update Dashboard kelahiran');
+                        // this.getData();
+                    });
             },
         }
     };

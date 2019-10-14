@@ -127,7 +127,7 @@
             listenEvent() {
                 Echo.channel('new-born-channel')
                     .listen('.new-born-event', (res) => {
-                        this.$noty.info('Update Dashboard kelahiran');
+                        // this.$noty.info('Update Dashboard kelahiran');
                         this.getData();
                     });
             },

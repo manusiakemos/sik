@@ -10,7 +10,7 @@ class SettingController extends Controller
 {
     public function index()
     {
-        return SettingResource::collection(Setting::whereIn('setting_id', [6])->get());
+        return SettingResource::collection(Setting::orderBy('setting_name', 'asc')->get());
     }
 
     public function show($id)
