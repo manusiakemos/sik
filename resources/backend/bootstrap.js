@@ -1,13 +1,5 @@
 window._ = require('lodash');
 
-importScripts('https://cdn.onesignal.com/sdks/OneSignalSDKWorker.js');
-var OneSignal = window.OneSignal || [];
-OneSignal.push(function() {
-  OneSignal.init({
-    appId: "31e318be-9285-4d18-b0c5-fc367f8dc8c4",
-  });
-});
-
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This

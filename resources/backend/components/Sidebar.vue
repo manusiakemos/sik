@@ -63,7 +63,7 @@
 
 
                 <li class="nav-item">
-                    <router-link to="/setting" class="nav-link">
+                    <router-link to="/setting" class="nav-link"  v-if="user.role == 'kominfo'">
                         <i class="fas fa-tired"></i>
                         <span>Setting</span>
                     </router-link>

@@ -17,12 +17,12 @@
                             TOTAL POIN <span v-if="totalPoin"> {{ totalPoin }}</span>
                         </h4>
                         <div class="card-header-action">
-                            <button
+                            <!--<button
                                     v-if="totalPoin >= setting_reward"
                                     class="btn btn-sm-block btn-primary mr-1 mt-2 shadow-lg"
                                     @click="create"
                             >Beri Reward
-                            </button>
+                            </button>-->
                             <button type="button" class="btn btn-sm-block btn-warning mr-1 mt-2 shadow-lg mt-2 mr-1"
                                     @click="refresh">
                                 Refresh Poin
@@ -70,6 +70,13 @@
                                                 <p v-if="value.note">{{value.note}}</p>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-block btn-outline-dark mt-3" @click="loadMore">Muat lebih banyak</button>
                                     </div>
                                 </div>
                             </div>
@@ -147,22 +154,22 @@
         },
         methods: {
             getData() {
-                this.$http.get(`/api/reward-poin-bidan/balance/${this.id}`).then(res => {
-                    if (res.data.balance) {
-                        this.poin.balance = parseInt(res.data.balance);
-                    }
-                });
-                this.$http.get(`/api/reward-poin-bidan/cash/${this.id}`).then(res => {
-                    if (res.data.cash) {
-                        this.poin.cash = parseInt(res.data.cash);
-                    }
-                });
+                // this.$http.get(`/api/reward-poin-bidan/balance/${this.id}`).then(res => {
+                //     if (res.data.balance) {
+                //         this.poin.balance = parseInt(res.data.balance);
+                //     }
+                // });
+                // this.$http.get(`/api/reward-poin-bidan/cash/${this.id}`).then(res => {
+                //     if (res.data.cash) {
+                //         this.poin.cash = parseInt(res.data.cash);
+                //     }
+                // });
                 this.$http.get(`/api/bidan/${this.id}`).then(res => {
                     this.bidan = res.data;
                 });
-                this.$http.get('/api/setting/6').then(res => {
-                    this.setting_reward = res.data.setting_value;
-                });
+                // this.$http.get('/api/setting/6').then(res => {
+                //     this.setting_reward = res.data.setting_value;
+                // });
                 this.$http.get(`/api/reward-bidan/get-history/${this.page}/${this.id}`).then(res => {
                     this.rewards = res.data;
                 })
@@ -194,7 +201,20 @@
                         });
                     }
                 });
-            }
+            },
+            loadMore() {
+                this.page = this.page+1;
+                this.$http.get(`/api/reward-bidan/get-history/${this.page}/${this.id}`).then(res => {
+                    // this.rewards = res.data;
+                    if(res.data && res.data.length > 0){
+                        res.data.forEach(v=>{
+                            this.rewards.push(v);
+                        })
+                    }else{
+                        this.$noty.info('tidak ada riwayat lebih lanjut');
+                    }
+                })
+            },
         }
     };
 </script>

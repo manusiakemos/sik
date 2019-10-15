@@ -11,8 +11,19 @@
     <link rel="icon" href="{{ asset('images/tabalong-square.png') }}">
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 
-    @laravelPWA
-    <script src="{{ asset('register-service-worker.js') }}"></script>
+    @if(env('APP_ENV') == 'production')
+        @laravelPWA
+        <script src="{{ asset('register-service-worker.js') }}"></script>
+        <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+        <script>
+            var OneSignal = window.OneSignal || [];
+            OneSignal.push(function () {
+                OneSignal.init({
+                    appId: "31e318be-9285-4d18-b0c5-fc367f8dc8c4",
+                });
+            });
+        </script>
+    @endif
 </head>
 
 <body class="layout-1">
@@ -24,16 +35,16 @@
 
 <!-- General JS Scripts -->
 <script src="{{ (env('APP_ENV') === 'local') ? mix('js/main.js') : asset('js/main.js') }}"></script>
-<script>
+{{--<script>
     window['isUpdateAvailable']
         .then(isAvailable => {
             if (isAvailable) {
-                alert('new update available');
+                // alert('new update available');
                 location.reload(true);
                 //  console.log('new update available');
             }
         });
-</script>
+</script>--}}
 
 </body>
 

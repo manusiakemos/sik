@@ -107,7 +107,8 @@ const router = new VueRouter({
           path: '/setting',
           component: Setting,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            role: 'kominfo'
           }
         },
         {
