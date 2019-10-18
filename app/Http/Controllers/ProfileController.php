@@ -29,7 +29,7 @@ class ProfileController extends Controller
         ]);
         $id = auth()->id();
         $db = User::find($id);
-        $db->name = $request->input('name');
+//        $db->user_name = $request->input('name');
         $db->username = $request->input('username');
 //        $db->bio = $request->input( 'bio');
 //        $db->phone = $request->input('phone');

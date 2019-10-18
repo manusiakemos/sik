@@ -49,16 +49,16 @@ class PregnancyProcessResource extends JsonResource
                 'show_riwayat' => false,
                 'show_edit_status' => false,
                 'foto_kk' => $this->pp_imagekk
-                    ? asset('uploads/'.$this->pp_imagekk)
+                    ? asset('images/'.$this->pp_imagekk)
                     : asset('assets/img/news/img01.jpg'),
                 'buku_nikah' => $this->pp_imagebukunikah
-                    ? asset('uploads/'.$this->pp_imagebukunikah)
+                    ? asset('images/'.$this->pp_imagebukunikah)
                     : asset('assets/img/news/img01.jpg'),
                 'ktp_ayah' => $this->pp_imagektp_ayah
-                    ? asset('uploads/'.$this->pp_imagektp_ayah)
+                    ? asset('images/'.$this->pp_imagektp_ayah)
                     : asset('assets/img/news/img01.jpg'),
                 'ktp_ibu' => $this->pp_imagektp_ibu
-                    ? asset('uploads/'.$this->pp_imagektp_ibu)
+                    ? asset('images/'.$this->pp_imagektp_ibu)
                     : asset('assets/img/news/img01.jpg'),
             ],
             'detail' => PregnancyProcessDetailResource::collection($this->detail),

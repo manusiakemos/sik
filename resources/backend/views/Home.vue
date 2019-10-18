@@ -32,21 +32,11 @@
         <modal id="modal-detail"
                :title="data && data.data ? data.data.pp_code : 'Detail'"
                ref="modal"
-               type="lg"
+               type="xl"
                class="modal">
             <div class="row" v-if="data && data.data">
-                <div class="col-12 text-center mb-3">
-                    <a :href="data.mod.foto_kk" target="_blank">
-                        <img :src="data.mod.foto_kk" alt="foto kk" class="img-fluid">
-                    </a>
-                </div>
-                <div class="col-12 text-center mb-3">
-                    <a :href="data.mod.buku_nikah" target="_blank">
-                        <img :src="data.mod.buku_nikah" alt="buku nikah" class="img-fluid">
-                    </a>
-                </div>
                 <div class="col-12">
-                    <div class="card shadow mt-3">
+                    <div class="card shadow-sm card-dark mt-3">
                         <div class="card-body">
                             <div><span class="badge badge-danger">{{data.data.pp_status}}</span></div>
                             <div>
@@ -58,42 +48,44 @@
                         </div>
                     </div>
                 </div>
-                <!--ibu-->
                 <div class="col-12">
-                    <a :href="data.mod.ktp_ibu" target="_blank">
-                        <div class="card card-primary shadow">
-                            <img :src="data.mod.ktp_ibu" alt="foto kk" class="img-card-top">
-                            <div class="card-body">
-                                <div>
-                                    <h6 class="display-6 text-primary mt-3">Nomor KTP Ibu
-                                        {{data.data.pp_noktp_ibu}}</h6>
+                    <div class="card shadow-sm card-dark">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 text-center mb-3">
+                                    <figure class="figure">
+                                        <img :src="data.mod.foto_kk" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+                                        <figcaption class="figure-caption">Foto KK.</figcaption>
+                                    </figure>
                                 </div>
-                                <p class="text-dark">
-                                    Nama Ibu : {{data.data.pp_nama_ibu}}
-                                </p>
-                                <p class="text-dark">
-                                    Gol Darah : {{data.data.pp_goldarah_ibu}}
-                                </p>
+                                <div class="col-md-6 text-center mb-3">
+                                    <figure class="figure">
+                                        <img :src="data.mod.buku_nikah" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+                                        <figcaption class="figure-caption">Buku Nikah.</figcaption>
+                                    </figure>
+                                </div>
                             </div>
                         </div>
-                    </a>
-                </div>
-                <!--ayah-->
-                <div class="col-12">
-                    <a :href="data.mod.ktp_ayah" target="_blank">
-                        <div class="card card-primary shadow">
-                            <img :src="data.mod.ktp_ayah" alt="foto kk" class="img-card-top">
-                            <div class="card-body">
-                                <div>
-                                    <h6 class="display-6 text-primary mt-3">Nomor KTP Ayah
-                                        {{data.data.pp_noktp_ayah}}</h6>
+                    </div>
+
+                    <div class="card shadow-sm card-dark">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 text-center mb-3">
+                                    <figure class="figure">
+                                        <img :src="data.mod.ktp_ibu" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+                                        <figcaption class="figure-caption">KTP Ibu.</figcaption>
+                                    </figure>
                                 </div>
-                                <p class="text-dark">
-                                    Nama Ayah : {{data.data.pp_nama_ayah}}
-                                </p>
+                                <div class="col-md-6 text-center mb-3">
+                                    <figure class="figure">
+                                        <img :src="data.mod.ktp_ayah" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+                                        <figcaption class="figure-caption">KTP Ayah.</figcaption>
+                                    </figure>
+                                </div>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
         </modal>
@@ -102,7 +94,7 @@
         <modal type="md" id="modal-riwayat" title="Riwayat">
             <div class="list-group" v-if="data && data.data && data.detail.length > 0">
                 <div v-for="v in data.detail"
-                        class="list-group-item list-group-item-action flex-column align-items-start">
+                     class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">{{v.data.ppd_status}}</h5>
                         <b>{{v.data.ppd_date}}</b>
@@ -129,8 +121,8 @@
         components: {
             PregnancyTabs, Modal, RequestPoint
         },
-        created(){
-            this.$http.get('/api/setting').then(res=>{
+        created() {
+            this.$http.get('/api/setting').then(res => {
                 this.$store.commit("_setting", res.data);
             });
 
@@ -179,11 +171,11 @@
                 this.data = this.riwayat.data;
             },
             listenChannel() {
-                Echo.channel('new-born-channel')
-                    .listen('.new-born-event', (res) => {
-                        this.$noty.info('Update Dashboard kelahiran');
-                        // this.getData();
-                    });
+                // Echo.channel('new-born-channel')
+                //     .listen('.new-born-event', (res) => {
+                //         this.$noty.info('Update Dashboard kelahiran');
+                //         // this.getData();
+                //     });
             },
         }
     };

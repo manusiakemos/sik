@@ -4,6 +4,10 @@ namespace App\Console\Commands;
 
 use App\Model\Arsip;
 use App\Model\ArsipDetail;
+use App\Model\Bidan;
+use App\Model\PregnancyProcess;
+use App\Model\PregnancyProcessDetail;
+use App\Model\Reward;
 use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
@@ -41,7 +45,12 @@ class ResetApps extends Command
      */
     public function handle()
     {
-        User::truncate();
-        Artisan::call("db:seed");
+//        User::truncate();
+//        Artisan::call("db:seed");
+        Reward::truncate();
+        PregnancyProcess::truncate();
+        PregnancyProcessDetail::truncate();
+        Bidan::truncate();
+        User::where('user_level', 'bidan')->delete();
     }
 }
