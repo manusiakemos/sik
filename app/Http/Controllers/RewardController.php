@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RefreshEvent;
+use App\Events\RequestPoinEvent;
 use App\Http\Resources\RewardResource;
 use App\Model\Bidan;
 use App\Model\PregnancyProcessDetail;
@@ -12,9 +14,16 @@ use Illuminate\Http\Request;
 class RewardController extends Controller
 {
 
-    public function index()
+    public function status(Request $request, $status)
     {
-        $data = QueryRepository::sortRewardByStatus('request')->get();
+        $data = QueryRepository::sortRewardByStatus($status);
+        if($request->search){
+            $data = $data->whereHas('bidan', function($query) use ($request){
+                $query->where('bidan_nama','like', '%'. $request->search . '%');
+            })->paginate(1000);
+        }else{
+            $data = $data->paginate(9);
+        }
         return RewardResource::collection($data);
     }
 
@@ -68,7 +77,8 @@ class RewardController extends Controller
                 $msg = 'Diterima';
                 break;
         }
-        return responseJson('Reward berhasil '.$msg);
+        broadcast(new RefreshEvent());
+        return responseJson('Reward berhasil ' . $msg);
     }
 
 

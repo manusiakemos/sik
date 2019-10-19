@@ -53,6 +53,7 @@ class BidanController extends Controller
 //                $data = floatval($debt[1] ? $debt[1]->agg : 0) - floatval($debt[0]->agg);
                 return $data ? $data : 0;
             })
+            ->rawColumns(['action', 'bidan_alamat'])
             ->toJson();
     }
 
@@ -67,10 +68,11 @@ class BidanController extends Controller
             $this->validate($request, [
 //                "kelurahan_id" => "required",
 //                "puskesmas_id" => "required",
-                "bidan_statis" => "required",
+//                "bidan_statis" => "required",
                 "bidan_nik" => "required",
 //                "bidan_nip" => "required",
 //                "bidan_nomor" => "required",
+                "bidan_alamat" => "required",
                 "bidan_nama" => "required",
                 "bidan_telp" => "required",
             ]);
@@ -79,9 +81,10 @@ class BidanController extends Controller
 //                "kelurahan_id" => "required",
 //                "puskesmas_id" => "required",
                 "bidan_statis" => "required",
-                "bidan_nik" => "required",
+//                "bidan_nik" => "required",
 //                "bidan_nip" => "required",
 //                "bidan_nomor" => "required",
+                "bidan_alamat" => "required",
                 "bidan_nama" => "required",
                 "bidan_telp" => "required",
             ]);
@@ -122,6 +125,7 @@ class BidanController extends Controller
         }
         $db->bidan_nik = $request->bidan_nik;
         $db->bidan_nama = $request->bidan_nama;
+        $db->bidan_alamat = $request->bidan_alamat;
         $db->bidan_telp = $request->bidan_telp;
         if ($db->save()) {
             $user = new User;
@@ -155,6 +159,7 @@ class BidanController extends Controller
     public function update(Request $request, $id)
     {
         $this->rules($request, $id);
+        $username = $request->bidan_nik;
         $db = Bidan::find($id);
         if ($request->bidan_statis) {
             $db->puskesmas_id = $request->puskesmas_id;
@@ -177,7 +182,17 @@ class BidanController extends Controller
         $db->bidan_nik = $request->bidan_nik;
         $db->bidan_nama = $request->bidan_nama;
         $db->bidan_telp = $request->bidan_telp;
-        return $db->save() ? responseJson('Bidan berhasil diupdate') : '';
+        $db->bidan_alamat = $request->bidan_alamat;
+        if ($db->save()) {
+            $user = User::where('bidan_id', $db->bidan_id)->first();
+            $user->bidan_id = $db->bidan_id;
+            $user->username = $username;
+            $user->api_token = Str::random(60);
+            $user->password = bcrypt($username);
+            $user->user_level = 'bidan';
+            $user->save();
+            return $user->save() ? responseJson('Bidan berhasil diupdate') : '';
+        }
     }
 
     /**

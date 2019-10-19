@@ -6,6 +6,7 @@
                 <router-view></router-view>
             </transition>
         </div>
+        <el-backtop target="#top-navbar-component"></el-backtop>
     </div>
 </template>
 <script>

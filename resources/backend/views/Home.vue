@@ -10,15 +10,27 @@
                 </div>
             </div>
             <div class="section-body">
-                <div class="card mb-3" v-if="auth_user.role == 'kominfo'">
+                <div class="card card-primary mb-3" v-if="auth_user.role == 'kominfo'">
                     <div class="card-header">
                         <h4>Daftar Permintaan Tukar Point</h4>
                     </div>
                     <div class="card-body">
-                        <request-point></request-point>
+                        <template>
+                            <el-tabs v-model="activeNamePointTab">
+                                <el-tab-pane label="Request" name="request">
+                                    <request-point id="request"></request-point>
+                                </el-tab-pane>
+                                <el-tab-pane label="Diterima" name="verify">
+                                    <request-point id="verify"></request-point>
+                                </el-tab-pane>
+                                <el-tab-pane label="Ditolak" name="cancel">
+                                    <request-point id="cancel"></request-point>
+                                </el-tab-pane>
+                            </el-tabs>
+                        </template>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card card-danger shadow">
                     <div class="card-header">
                         <h4>Daftar Kelahiran</h4>
                     </div>
@@ -130,6 +142,8 @@
         },
         data() {
             return {
+                activeNamePointTab:'request',
+                // 'request','verify','cancel'
                 data: '',
                 title: "Dashboard",
                 canvas_base64: "",

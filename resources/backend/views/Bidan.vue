@@ -93,6 +93,11 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label>Alamat</label>
+                <text-editor v-model="data.data.bidan_alamat"></text-editor>
+            </div>
+
         </modal>
     </div>
 </template>
@@ -106,6 +111,7 @@
     import TextInput from "../components/input/Text";
     import SelectPuskesmas from "../components/Puskesmas";
     import SelectKelurahan from "../components/Kelurahan";
+    import TextEditor from  "../components/MyEditor";
 
     export default {
         mixins: [mixin],
@@ -116,7 +122,8 @@
             TextInput,
             ToggleButton,
             SelectKelurahan,
-            SelectPuskesmas
+            SelectPuskesmas,
+            TextEditor
         },
         created() {
             this.data2 = this.data;
@@ -138,6 +145,8 @@
                         {title: "Statis", data: "bidan_statis", class: "text-capitalize"},
                         {title: "Puskesmas", data: "puskesmas_nama", name:"_puskesmas.puskesmas_nama", class: "text-capitalize"},
                         {title: "Kelurahan", data: "kelurahan_nama", name:"_kelurahan.kelurahan_nama", class: "text-capitalize"},
+                        {title: "Alamat", data: "bidan_alamat", class: "text-capitalize"},
+
                         {title: "Action", data: "action", class: "text-center all"}
                     ]
                 },
@@ -148,6 +157,7 @@
                         "kelurahan_id": "",
                         "puskesmas_id": "",
                         "bidan_nik": "",
+                        "bidan_alamat": "",
                         "bidan_nip": "",
                         "bidan_nomor": "",
                         "bidan_nama": "",

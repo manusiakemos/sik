@@ -19,7 +19,7 @@ class RewardResource extends JsonResource
             'links' => [
                 'update' => route('reward.update', $this->reward_id)
             ],
-            'tanggal_reward' => tanggal_indo($this->reward_date, true, true),
+            'tanggal_reward' => tanggal_indo($this->reward_created_at, true, true),
         ];
     }
 }

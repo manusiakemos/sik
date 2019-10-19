@@ -5,7 +5,9 @@
             <div class="col-12">
                 <div class="form-group m-0">
                     <el-input placeholder="filter data"
-                              v-model="search" @change="getData"></el-input>
+                              v-model="search" @change="getData">
+                        <el-button slot="append" icon="el-icon-search"></el-button>
+                    </el-input>
                 </div>
             </div>
             <div class="col-lg-4" v-for="v in lists.data">

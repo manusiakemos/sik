@@ -20,9 +20,14 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::group(['middleware' => ['role:kominfo']], function () {
         Route::resource('user', 'UserController')->except(['show', 'update']);
+
         Route::resource('bidan', 'BidanController')->except(['edit', 'create']);
+
         Route::resource('puskesmas', 'PuskesmasController')->except(['edit', 'create']);
-        Route::resource('reward', 'RewardController')->except(['edit', 'create', 'destroy']);
+
+        Route::get('reward/status/{status}', 'RewardController@status');
+        Route::resource('reward', 'RewardController')->except(['edit', 'create', 'destroy', 'index']);
+
         Route::get('reward-bidan/history', 'RewardController@history')->name('reward-bidan-history');
         Route::get('reward-bidan/get-history/{page}/{bidan_id}', 'RewardController@getHistory')->name('reward-bidan-get-history');
         Route::get('reward-bidan/{bidan_id}', 'RewardController@rewardBidan')->name('reward-bidan');

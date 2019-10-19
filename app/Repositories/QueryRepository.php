@@ -84,6 +84,11 @@ class QueryRepository
 
     public static function sortRewardByStatus($status)
     {
-        return Reward::with('bidan')->where('reward_status', $status);
+//        $tickets = Ticket::whereHas('user', function ($query) use ($request) {
+//            $query->where('name', 'like', "%{$request->name}%");
+//        });
+        return Reward::with('bidan')
+            ->where('reward_status', $status)
+            ->latest();
     }
 }
