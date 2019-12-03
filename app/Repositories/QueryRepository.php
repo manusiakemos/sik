@@ -4,8 +4,6 @@ namespace App\Repositories;
 
 
 use App\Model\Arsip;
-use App\Model\Berita;
-use App\Model\Bidan;
 use App\Model\Kecamatan;
 use App\Model\Kelurahan;
 use App\Model\PregnancyProcessDetail;

@@ -230,7 +230,8 @@ class BidanController extends Controller
      */
     public function destroy($id)
     {
-        Bidan::findOrFail($id)->delete();
+        Bidan::destroy($id);
+        User::where('bidan_id', $id)->delete();
         return responseJson('Bidan berhasil diupdate');
 
     }
