@@ -49,11 +49,19 @@
                 <input type="text" class="form-control" v-model="data.data.username"/>
                 <small class="text-danger" v-if="this.errors.username">{{ this.errors.username.join() }}</small>
             </div>
+
             <div class="form-group">
                 <label>Role</label>
                 <role v-model="data.data.role"/>
                 <small class="text-danger" v-if="this.errors.role">{{ this.errors.role.join() }}</small>
             </div>
+
+            <div class="form-group" v-if="this.data.data.role == 'puskesmas'">
+                <label>Pilih Puskesmas</label>
+                <select-puskesmas v-model="data.data.puskesmas_id"/>
+                <small class="text-danger" v-if="this.errors.puskesmas_id">{{ this.errors.puskesmas_id.join() }}</small>
+            </div>
+
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" autocomplete="new-password" class="form-control" v-model="data.data.password"/>
@@ -76,10 +84,12 @@
     import MyEditor from "../components/MyEditor";
     import DataTables from "../components/DataTables";
     import Role from "../components/Roles";
+    import SelectPuskesmas from "../components/sik/SelectPuskesmas";
 
     export default {
         mixins: [mixin],
         components: {
+            SelectPuskesmas,
             Modal,
             ModelSelect,
             MyEditor,

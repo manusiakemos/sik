@@ -22,6 +22,8 @@ import Bidan from "./views/Bidan";
 
 import Reward from "./views/Reward";
 
+import Detail from "./views/ProcessDetail";
+
 import RequestPoint from "./views/RequestPoint";
 
 // import UserCreate from './views/UserCreate';
@@ -69,7 +71,6 @@ const router = new VueRouter({
           component: Puskesmas,
           meta: {
             requiresAuth: true,
-            role: 'kominfo'
           }
         },
         {
@@ -85,7 +86,6 @@ const router = new VueRouter({
           component: Bidan,
           meta: {
             requiresAuth: true,
-            role: 'kominfo'
           }
         },
         {
@@ -93,7 +93,6 @@ const router = new VueRouter({
           component: Reward,
           meta: {
             requiresAuth: true,
-            role: 'kominfo'
           }
         },
         {
@@ -117,6 +116,13 @@ const router = new VueRouter({
           meta: {
             requiresAuth: true,
             role: 'kominfo'
+          }
+        },
+        {
+          path: '/detail',
+          component: Detail,
+          meta: {
+            requiresAuth: true,
           }
         },
        /* {

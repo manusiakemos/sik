@@ -10,7 +10,7 @@ export default {
     props:['value'],
     data () {
         return {
-            options: ['kominfo','capil'],
+            options: ['bidan','capil','kominfo','dinkes','puskesmas'],
         };
     },
 }

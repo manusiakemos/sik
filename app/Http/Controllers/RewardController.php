@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\RefreshEvent;
-use App\Events\RequestPoinEvent;
 use App\Http\Resources\RewardResource;
-use App\Model\Bidan;
-use App\Model\PregnancyProcessDetail;
 use App\Model\Reward;
 use App\Repositories\QueryRepository;
 use Illuminate\Http\Request;
@@ -16,7 +13,7 @@ class RewardController extends Controller
 
     public function status(Request $request, $status)
     {
-        $data = QueryRepository::sortRewardByStatus($status);
+        $data = QueryRepository::sortRewardByStatus($status)->orderBy('updated_at', 'desc');
         if($request->search){
             $data = $data->whereHas('bidan', function($query) use ($request){
                 $query->where('bidan_nama','like', '%'. $request->search . '%');

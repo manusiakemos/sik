@@ -105,11 +105,7 @@
 										headers: { "Authorization": `Bearer ${d.api_token}` }
 									});
 
-									if (d.role == "voter-admin") {
-										this.$router.push({ path: "/enter-token" });
-									} else {
-										this.$router.push({ path: "/home" });
-									}
+									this.$router.push("/home");
 								}else{
                                     this.$noty.error("Username atau password salah");
                                 }

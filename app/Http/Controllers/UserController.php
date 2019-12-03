@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return DataTables::of(User::query())
+        return DataTables::of(User::query()->where('user_level', '<>', 'bidan'))
             ->addColumn('action', function(User $value){
                 return view('action.user', compact('value'));
             })
@@ -45,6 +45,7 @@ class UserController extends Controller
         $db = User::insert([
             "username" => $request->input("username"),
             "user_level" => $request->input("role"),
+            "puskesmas_id" => $request->input("puskesmas_id"),
             "password" => bcrypt($request->input("password")),
             "api_token" => Str::random(60)
         ]);
@@ -92,6 +93,7 @@ class UserController extends Controller
                 "name" => $request->input("name"),
                 "username" => $request->input("username"),
                 "role" => $request->input("role"),
+                "puskesmas_id" => $request->input("puskesmas_id"),
                 "password" => bcrypt($request->input("password")),
             ]);
         } else {
@@ -99,6 +101,7 @@ class UserController extends Controller
                 "name" => $request->input("name"),
                 "username" => $request->input("username"),
                 "role" => $request->input("role"),
+                "puskesmas_id" => $request->input("puskesmas_id"),
             ]);
         }
         return $db

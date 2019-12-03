@@ -18,12 +18,12 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::resource('pregnancyprocess', 'PregnancyProcessController')->except(['edit', 'create']);
     Route::resource('pregnancyprocessdetail', 'PregnancyProcessDetailController')->except(['edit', 'create']);
 
+    Route::resource('bidan', 'BidanController')->except(['edit', 'create']);
+
+    Route::resource('puskesmas', 'PuskesmasController')->except(['edit', 'create']);
+
     Route::group(['middleware' => ['role:kominfo']], function () {
         Route::resource('user', 'UserController')->except(['show', 'update']);
-
-        Route::resource('bidan', 'BidanController')->except(['edit', 'create']);
-
-        Route::resource('puskesmas', 'PuskesmasController')->except(['edit', 'create']);
 
         Route::get('reward/status/{status}', 'RewardController@status');
         Route::resource('reward', 'RewardController')->except(['edit', 'create', 'destroy', 'index']);

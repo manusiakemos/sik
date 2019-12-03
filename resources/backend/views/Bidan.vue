@@ -16,6 +16,7 @@
                     <div class="col-lg-12 d-lg-flex">
                         <div class="mr-lg-auto">
                             <button
+                                    v-if="$store.state.auth.user.role != 'dinkes'"
                                     class="btn btn-sm-block btn-dark mr-1 mt-2"
                                     @click="create"
                             >Tambah Bidan

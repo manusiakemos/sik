@@ -50,7 +50,7 @@
         "vue-chartjs": "^3.4.2",
         "vue-cropperjs": "^4.0.0",
         "vue-dynamic-select": "^1.0.14",
-        "vue-html-to-paper": "^1.1.0",
+        "vue-html-to-paper": "^1.1.1",
         "vue-image-crop-upload": "^2.5.0",
         "vue-image-upload-resize": "^2.0.4",
         "vue-infinite-loading": "^2.4.4",

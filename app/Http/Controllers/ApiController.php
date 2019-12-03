@@ -6,10 +6,8 @@ use App\Http\Resources\SelectDataResource;
 use App\Model\Bidan;
 use App\Model\Puskesmas;
 use App\Repositories\QueryRepository;
-use GuzzleHttp\RequestOptions;
 use Illuminate\Http\Request;
 use Ixudra\Curl\Facades\Curl;
-use GuzzleHttp\Client;
 use Yajra\DataTables\DataTables;
 
 class ApiController extends Controller

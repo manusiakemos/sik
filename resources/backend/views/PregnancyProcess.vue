@@ -18,7 +18,7 @@
                             <button
                                     class="btn btn-sm-block btn-dark mr-1 mt-2"
                                     @click="create"
-                            >Tambah Berita
+                            >Tambah
                             </button>
                             <button type="button" class="btn btn-sm-block btn-dark mt-2 mr-1" @click="refresh">
                                 Refresh

@@ -31,10 +31,11 @@
                     </router-link>
                 </li>
 
-                <li class="nav-item" v-if="user.role == 'kominfo'">
+                <li class="nav-item" v-if="user.role == 'kominfo' || user.role == 'puskesmas' || user.role == 'dinkes'">
                     <router-link to="/bidan" class="nav-link">
                         <i class="fas fa-medkit"></i>
-                        <span>Bidan/Reward</span>
+                        <span v-if="user.role == 'kominfo'">Bidan/Reward</span>
+                        <span v-else>Bidan</span>
                     </router-link>
                 </li>
 

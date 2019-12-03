@@ -30,7 +30,7 @@
                         </template>
                     </div>
                 </div>
-                <div class="card card-danger shadow">
+                <div class="card card-danger shadow"  v-if="auth_user.role == 'capil'">
                     <div class="card-header">
                         <h4>Daftar Kelahiran</h4>
                     </div>
@@ -177,8 +177,9 @@
                 })
             },
             showDetail() {
-                this.showModal(this.detail.target);
-                this.data = this.detail.data;
+                // this.showModal(this.detail.target);
+                // this.data = this.detail.data;
+                this.$router.push("/detail");
             },
             showRiwayat() {
                 this.showModal(this.riwayat.target);

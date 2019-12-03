@@ -88,7 +88,6 @@ class QueryRepository
 //            $query->where('name', 'like', "%{$request->name}%");
 //        });
         return Reward::with('bidan')
-            ->where('reward_status', $status)
-            ->latest();
+            ->where('reward_status', $status);
     }
 }

@@ -17,7 +17,8 @@ class PregnancyProcessController extends Controller
             return responseJson('status belum di set');
         }
         $data = PregnancyProcess::with(['detail', 'bidan'])
-            ->where("pp_status", $status);
+            ->where("pp_status", $status)
+            ->latest();
         if($search){
             $data = $data
                 ->where('pp_code', 'like' , "%$search%")

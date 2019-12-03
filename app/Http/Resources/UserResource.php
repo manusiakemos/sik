@@ -19,8 +19,9 @@ class UserResource extends JsonResource
             : $avatar = asset('/assets/img/avatar/avatar-1.png');
         return array(
             'id' => $this->id,
+            'puskesmas_id' => $this->puskesmas_id,
+            'bidan_id' => $this->bidan_id,
             'username' => $this->username,
-//            'name' => $this->name,
             'avatar' => $avatar,
             'api_token' => $this->api_token,
             'role' => $this->user_level,

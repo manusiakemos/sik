@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\BidanResource;
 use App\Model\Bidan;
+use App\Model\Kecamatan;
+use App\Model\Kelurahan;
 use App\Model\PregnancyProcessDetail;
+use App\Model\Puskesmas;
 use App\Model\Reward;
 use App\User;
 use Illuminate\Http\Request;
@@ -127,6 +130,18 @@ class BidanController extends Controller
         $db->bidan_nama = $request->bidan_nama;
         $db->bidan_alamat = $request->bidan_alamat;
         $db->bidan_telp = $request->bidan_telp;
+        if(auth()->user()->user_level == 'puskesmas'){
+            $db->scopes_puskesmas_id = auth()->user()->puskesmas_id;
+        }else{
+            if ($request->bidan_statis) {
+                $db->scopes_puskesmas_id = $request->puskesmas_id;
+            } else {
+                $kelurahan = Kelurahan::find($request->kelurahan_id);
+                $kecamatan = Kecamatan::find($kelurahan->kecamatan_id);
+                $puskesmas = Puskesmas::where('kecamatan_id', $kecamatan->kecamatan_id)->first();
+                $db->scopes_puskesmas_id = $puskesmas->puskesmas_id;
+            }
+        }
         if ($db->save()) {
             $user = new User;
             $user->bidan_id = $db->bidan_id;
@@ -179,6 +194,20 @@ class BidanController extends Controller
             $db->bidan_nip = "";
             $db->bidan_pns = false;
         }
+
+        if(auth()->user()->user_level == 'puskesmas'){
+            $db->scopes_puskesmas_id = auth()->user()->puskesmas_id;
+        }else{
+            if ($request->bidan_statis) {
+                $db->scopes_puskesmas_id = $request->puskesmas_id;
+            } else {
+                $kelurahan = Kelurahan::find($request->kelurahan_id);
+                $kecamatan = Kecamatan::find($kelurahan->kecamatan_id);
+                $puskesmas = Puskesmas::where('kecamatan_id', $kecamatan->kecamatan_id)->first();
+                $db->scopes_puskesmas_id = $puskesmas->puskesmas_id;
+            }
+        }
+
         $db->bidan_nik = $request->bidan_nik;
         $db->bidan_nama = $request->bidan_nama;
         $db->bidan_telp = $request->bidan_telp;
