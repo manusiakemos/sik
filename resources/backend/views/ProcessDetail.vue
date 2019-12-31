@@ -18,7 +18,15 @@
                         <table class="table">
                             <tr>
                                 <td class="w-25">Status</td>
-                                <td>{{detail.data.data.pp_status}}</td>
+                                <td>{{detail.data.data.pp_status == 'born' ? 'lahir' : detail.data.data.pp_status}}</td>
+                            </tr>
+                            <tr>
+                                <td>Nama Ibu</td>
+                                <td>{{ detail.data.data.pp_nama_ibu }}</td>
+                            </tr>
+                            <tr>
+                                <td>Nama Bidan</td>
+                                <td>{{ detail.data.bidan.bidan_nama }}</td>
                             </tr>
                             <tr>
                                 <td>No KK</td>
